@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <ImageView
+            android:id="@+id/item_list_user_avatar"
+            android:layout_width="83dp"
+            android:layout_height="85dp"
+            android:layout_marginStart="12dp"
+            android:contentDescription="@string/avatar_rond"
+            android:scaleType="centerCrop"
+            android:src="@drawable/circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/poubelle"
+            android:layout_width="63dp"
+            android:layout_height="97dp"
+            android:background="#FFFFFF"
+            android:contentDescription="@string/Poubelle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.98"
+            app:layout_constraintStart_toEndOf="@+id/item_list_user_avatar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.272"
+            app:srcCompat="@drawable/icon_delete" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginStart="9dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="28dp"
+            android:contentDescription="@string/Email"
+            android:maxLines="1"
+            android:text="@string/Email"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/poubelle"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/item_list_user_avatar"
+            app:layout_constraintTop_toBottomOf="@+id/sujet"
+            app:layout_constraintVertical_bias="0.633" />
+
+        <TextView
+            android:id="@+id/NomSalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/nom_de_la_salle"
+            android:fontFamily="sans-serif-black"
+            android:maxLines="1"
+            android:text="@string/nom_de_la_salle"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/item_list_user_avatar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/heure"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="12dp"
+            android:text="@string/heure_de_reunion"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/sujet"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/NomSalle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/sujet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:maxLines="1"
+            android:text="@string/sujet_de_la_reunion"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/poubelle"
+            app:layout_constraintStart_toEndOf="@+id/heure"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.207" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

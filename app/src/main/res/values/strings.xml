@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Ma Réu</string>
+    <string name="avatar_rond">imageRonde</string>
+    <string name="nom_de_la_salle">Nom salle</string>
+    <string name="heure_de_reunion">Heure </string>
+    <string name="sujet_de_la_reunion">sujet</string>
+    <string name="Email">Saisissez les Mail des participant à cette Réu</string>
+    <string name="Desein_pour_activiter_profile">dessein pour la nouvelle activité</string>
+    <string name="Poubelle">poubelle</string>
+    <string name="Flotingactionbutton">flotingactionbutton</string>
+    <string name="Mail_profile">Mail des participant</string>
+    <string name="Find_a_date">Date of your Réu</string>
+    <string name="Find_houre">Time of your Réu</string>
+    <string name="Find_a_date_and_a_houre">Find My Réu</string>
+    <string name="Subject">Subject of your Réu</string>
+    <string name="button_Date">choisir une date</string>
+    <string name="button_haour">choisir une heure</string>
+    <string name="Date">Date</string>
+    <string name="Heure">heure</string>
+
+
+</resources>
