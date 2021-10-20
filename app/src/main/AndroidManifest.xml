@@ -9,15 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaRéu">
-        <activity android:name="cUI.AddMeetingActivity"></activity>
-        <activity android:name="cUI.MyMeetingProfileActivity" />
-        <activity android:name="cUI.MainActivity">
+        <activity
+            android:name="cUI.ui.main.Main.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.MaRéu.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="cUI.ui.main.AddMeeting.AddMeetingActivity" />
+        <activity android:name="cUI.ui.main.MyMeetinProfile.MyMeetingProfileActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

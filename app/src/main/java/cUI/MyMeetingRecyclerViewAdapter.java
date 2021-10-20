@@ -7,7 +7,7 @@ import com.example.maru.Model.Meeting;
 
 import java.util.List;
 
-public class MyMeetingRecyclerViewAdapter   {
+public class MyMeetingRecyclerViewAdapter extends   {
 
 
 }

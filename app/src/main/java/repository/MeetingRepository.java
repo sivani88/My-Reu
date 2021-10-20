@@ -17,12 +17,14 @@ import configure.BuildConfigResolver;
 public class MeetingRepository {
     private final MutableLiveData<List<Meeting>> meetingsLiveData = new MutableLiveData<>(new ArrayList<>());
     private long maxId = 0;
+    private Meeting meeting;
 
     public MeetingRepository(BuildConfigResolver buildConfigResolver) {
         if (buildConfigResolver.isDebug()) {
             generateRandomMeeting();
         }
     }
+
 
     public void addMeeting(
             @NonNull String subject,
@@ -72,30 +74,43 @@ public class MeetingRepository {
         });
     }
 
-    private void generateRandomMeeting() {
-        addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
-                "paris", "01/01/2022", "10", true, "src\\main\\res\\drawable\\paris.png");
-        addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
-                "paris", "02/01/2022", "11", true, "src\\main\\res\\drawable\\paris.png");
-        addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
-                "paris", "03/01/2022", "12", true, "src\\main\\res\\drawable\\paris.png");
-        addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
-                "paris", "04/01/2022", "13", true, "src\\main\\res\\drawable\\paris.png");
-        addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
-                "paris", "05/01/2022", "14", true, "src\\main\\res\\drawable\\paris.png");
-        addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
-                "london", "01/01/2022", "10", true, "src\\main\\res\\drawable\\london.png");
-        addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
-                "Barcelona", "01/01/2022", "10", true, "src\\main\\res\\drawable\\barcelona.png");
-        addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
-                "Berlin", "01/01/2022", "10", true, "src\\main\\res\\drawable\\berlin.png");
-        addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
-                "New york", "01/01/2022", "10", true, "src\\main\\res\\drawable\\newyork.png");
-        addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
-                "venise", "01/01/2022", "10", true, "src\\main\\res\\drawable\\venise.png");
-        addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
-                "Vienne", "01/01/2022", "10", true, "src\\main\\res\\drawable\\vienna.png");
-        addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
-                "Moscou", "01/01/2022", "10", true, "src\\main\\res\\drawable\\moscou.PNG");
-    }
+   public LiveData<List<Meeting>> getMeetingfilterByRoom(String mName, String date, long meetingId) {
+
+        return Transformations.map(meetingsLiveData, meetings -> {
+            for (int i = 0; i < meetings.size(); i++) {
+                if (date.equals(meetings.get(i).getid()) && mName.equals(meetings.get(i).getRoom().getName())) {
+                    mFilterMeeting.add(meetings.get(i));
+                }
+            }
+            return mFilterMeeting;
+        });
+
 }
+
+        private void generateRandomMeeting () {
+            addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
+                    "paris", "01/01/2022", "10", true, "src\\main\\res\\drawable\\paris.png");
+            addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
+                    "paris", "02/01/2022", "11", true, "src\\main\\res\\drawable\\paris.png");
+            addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
+                    "paris", "03/01/2022", "12", true, "src\\main\\res\\drawable\\paris.png");
+            addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
+                    "paris", "04/01/2022", "13", true, "src\\main\\res\\drawable\\paris.png");
+            addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
+                    "paris", "05/01/2022", "14", true, "src\\main\\res\\drawable\\paris.png");
+            addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
+                    "london", "01/01/2022", "10", true, "src\\main\\res\\drawable\\london.png");
+            addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
+                    "Barcelona", "01/01/2022", "10", true, "src\\main\\res\\drawable\\barcelona.png");
+            addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
+                    "Berlin", "01/01/2022", "10", true, "src\\main\\res\\drawable\\berlin.png");
+            addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
+                    "New york", "01/01/2022", "10", true, "src\\main\\res\\drawable\\newyork.png");
+            addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
+                    "venise", "01/01/2022", "10", true, "src\\main\\res\\drawable\\venise.png");
+            addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
+                    "Vienne", "01/01/2022", "10", true, "src\\main\\res\\drawable\\vienna.png");
+            addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
+                    "Moscou", "01/01/2022", "10", true, "src\\main\\res\\drawable\\moscou.PNG");
+        }
+    }

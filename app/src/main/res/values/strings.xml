@@ -2,7 +2,7 @@
     <string name="app_name">Ma Réu</string>
     <string name="avatar_rond">imageRonde</string>
     <string name="nom_de_la_salle">Nom salle</string>
-    <string name="heure_de_reunion">Heure </string>
+    <string name="heure_de_reunion">Time </string>
     <string name="sujet_de_la_reunion">sujet</string>
     <string name="Email">Saisissez les Mail des participant à cette Réu</string>
     <string name="Desein_pour_activiter_profile">dessein pour la nouvelle activité</string>
@@ -17,6 +17,29 @@
     <string name="button_haour">choisir une heure</string>
     <string name="Date">Date</string>
     <string name="Heure">heure</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="fragment1">My Réu</string>
+    <string name="fragment2">Date</string>
+    <string name="fragment3">Place</string>
+    <string name="Empty">Tab 2</string>
+    <string name="Empty1">Tab 2</string>
+    <string name="Empty2">Tab 2</string>
+    <string name="Empty3">Tab 2</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <array name="romms">
+        <item>Salle de reunion</item>
+        <item>Paris</item>
+        <item>Moscou</item>
+        <item>Vienne</item>
+        <item>New york</item>
+        <item>Barcelone</item>
+        <item>Berlin</item>
+        <item>London</item>
+        <item>Venise</item>
+    </array>
 
 
 </resources>

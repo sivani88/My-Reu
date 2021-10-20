@@ -77,4 +77,6 @@ public class Meeting {
                 ", mMail='" + mMail + '\'' +
                 '}';
     }
+
+
 }
