@@ -6,24 +6,26 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
 import com.example.maru.Model.Meeting;
-import com.example.maru.Model.Room;
+
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import configure.BuildConfigResolver;
 
 public class MeetingRepository {
     private final MutableLiveData<List<Meeting>> meetingsLiveData = new MutableLiveData<>(new ArrayList<>());
     private long maxId = 0;
     private Meeting meeting;
 
-    public MeetingRepository(BuildConfigResolver buildConfigResolver) {
-        if (buildConfigResolver.isDebug()) {
-            generateRandomMeeting();
-        }
+
+    public MeetingRepository(long maxId, Meeting meeting) {
+        this.maxId = maxId;
+        this.meeting = meeting;
     }
+
+  public MeetingRepository() {
+        generateRandomMeeting();
+  }
 
 
     public void addMeeting(
@@ -32,14 +34,14 @@ public class MeetingRepository {
             @NonNull String mName,
             @NonNull String mDate,
             @NonNull String mHour,
-            boolean availability,
+           boolean availability,
             @NonNull String avatarUrl
 
     ) {
         List<Meeting> meetings = meetingsLiveData.getValue();
         if (meetings == null) return;
 
-        meetings.add(new Meeting(maxId++, subject, mMail, new Room(mName, mDate, mHour, false, avatarUrl)));
+        meetings.add(new Meeting(maxId++, subject, mMail, mName, mDate, mHour, false, avatarUrl));
         meetingsLiveData.setValue(meetings);
     }
 
@@ -51,41 +53,34 @@ public class MeetingRepository {
         for (Iterator<Meeting> iterator = meetings.iterator(); iterator.hasNext(); ) {
             Meeting meeting = iterator.next();
 
-            if (meeting.getid() == meetingId) {
+            if (meeting.getId() == meetingId) {
                 iterator.remove();
                 break;
             }
         }
     }
 
-    public LiveData<List<Meeting>> getMeetingLiveData() {
+    public LiveData<List<Meeting>> getMeetingLiveData(long meetingId) {
+
         return meetingsLiveData;
     }
 
-    public LiveData<Meeting> getMeetingLiveData(long meetingId) {
+    public LiveData<Meeting> getThisMeetingLiveData(long meetingId) {
         return Transformations.map(meetingsLiveData, meetings -> {
             for (Meeting meeting : meetings) {
-                if (meeting.getid() == meetingId) {
+                if (meeting.getId() == meetingId) {
                     return meeting;
                 }
             }
             return null;
 
         });
+
     }
 
-   public LiveData<List<Meeting>> getMeetingfilterByRoom(String mName, String date, long meetingId) {
 
-        return Transformations.map(meetingsLiveData, meetings -> {
-            for (int i = 0; i < meetings.size(); i++) {
-                if (date.equals(meetings.get(i).getid()) && mName.equals(meetings.get(i).getRoom().getName())) {
-                    mFilterMeeting.add(meetings.get(i));
-                }
-            }
-            return mFilterMeeting;
-        });
 
-}
+
 
         private void generateRandomMeeting () {
             addMeeting("projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",

@@ -2,44 +2,46 @@ package cUI.ui.main.AddMeeting;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.maru.databinding.ActivityAddMeetingBinding;
+import com.example.maru.R;
 
 import java.util.Calendar;
 
 public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener {
-    ActivityAddMeetingBinding mMeetingBinding;
+    Button buttonDate, buttonHour;
+    EditText textDate, textehour;
     int mHour, mMinute, mYear, mMonth, mDay;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMeetingBinding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
-        setContentView(mMeetingBinding.getRoot());
+        setContentView(R.layout.activity_add_meeting);
+        buttonDate = findViewById(R.id.buttonDate);
+        buttonHour = findViewById(R.id.buttonHaour);
+        textDate = findViewById(R.id.editTextDate);
+        textehour = findViewById(R.id.editTextDate);
 
-        //  MaterialDatePicker datePicker=MaterialDatePicker.Builder.datePicker()
-        //       .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-        //    .build();
 
-        mMeetingBinding.buttonDate.setOnClickListener(this);
-        mMeetingBinding.buttonHaour.setOnClickListener(this);
+        buttonDate.setOnClickListener(this);
+       buttonHour.setOnClickListener(this);
 
 
     }
 
-   // @RequiresApi(api = Build.VERSION_CODES.N)
+    // @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View v) {
-        if (v == mMeetingBinding.buttonDate) {
+        if (v == buttonDate) {
             final Calendar calendar = Calendar.getInstance();
             mYear = calendar.get(calendar.YEAR);
             mMonth = calendar.get(Calendar.MONTH);
@@ -49,29 +51,27 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    mMeetingBinding.editTextDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                   textDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
 
 
                 }
             }, mYear, mMonth, mDay);
             datePickerDialog.show();
         }
-        if(v==mMeetingBinding.buttonHaour){
-            final  Calendar c = Calendar.getInstance();
+        if (v == buttonHour) {
+            final Calendar c = Calendar.getInstance();
             mHour = c.get(Calendar.HOUR_OF_DAY);
-           // mMinute = c.get(Calendar.MINUTE);
+            // mMinute = c.get(Calendar.MINUTE);
 
             TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    mMeetingBinding.editTextTime.setText(hourOfDay+":"+minute);
+                  textehour.setText(hourOfDay + ":" + minute);
                 }
-            },mHour,mMinute, false);
+            }, mHour, mMinute, false);
         }
 
-        }
-
-
+    }
 
 
 }

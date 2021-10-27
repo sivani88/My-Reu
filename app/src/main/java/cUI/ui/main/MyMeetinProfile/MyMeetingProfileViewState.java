@@ -3,12 +3,14 @@ package cUI.ui.main.MyMeetinProfile;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.Objects;
+
 public class MyMeetingProfileViewState  {
 
     @NonNull
     private final String mName;
     @NonNull
-    private final String avatarUrl;
+    private String avatarUrl;
     @NonNull
     private final String  mDate;
     @NonNull
@@ -17,6 +19,14 @@ public class MyMeetingProfileViewState  {
     private final String subject;
     @NonNull
     private final String eMails;
+
+    public MyMeetingProfileViewState(@NonNull String name, @NonNull String date, @NonNull String hour, @NonNull String subject, @NonNull String eMails) {
+        mName = name;
+        mDate = date;
+        mHour = hour;
+        this.subject = subject;
+        this.eMails = eMails;
+    }
 
     public MyMeetingProfileViewState(@NonNull String name, @NonNull String avatarUrl, @NonNull String date, @NonNull String hour, @NonNull String subject, @NonNull String eMails) {
         this.mName = name;
@@ -38,7 +48,7 @@ public class MyMeetingProfileViewState  {
     }
 
     @NonNull
-    public String getHaour() {
+    public String getHour() {
         return mHour;
     }
 
@@ -59,12 +69,33 @@ public class MyMeetingProfileViewState  {
 
 
     @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj)
-        return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        MyMeetingProfileViewState that = (MyMeetingProfileViewState) obj;
-        return  mName == that.mName && mDate == that.mDate && mHour == that.mHour && avatarUrl == that.avatarUrl && subject == that.subject && eMails == that.eMails;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyMeetingProfileViewState that = (MyMeetingProfileViewState) o;
+        return mName.equals(that.mName) &&
+                avatarUrl.equals(that.avatarUrl) &&
+                mDate.equals(that.mDate) &&
+                mHour.equals(that.mHour) &&
+                subject.equals(that.subject) &&
+                eMails.equals(that.eMails);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mName, avatarUrl, mDate, mHour, subject, eMails);
+    }
+
+    @Override
+    public String toString() {
+        return "MyMeetingProfileViewState{" +
+                "mName='" + mName + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", mDate='" + mDate + '\'' +
+                ", mHour='" + mHour + '\'' +
+                ", subject='" + subject + '\'' +
+                ", eMails='" + eMails + '\'' +
+                '}';
     }
 }
 

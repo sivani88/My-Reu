@@ -4,9 +4,9 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import ViewModel.ViewModelFactory;
 import repository.MeetingRepository;
 
 public class MyMeetingProfileViewModel extends ViewModel {
@@ -20,5 +20,13 @@ public class MyMeetingProfileViewModel extends ViewModel {
         mApplication = application;
         mMeetingRepository = meetingRepository;
     }
-    // public LiveData<M>
+    public LiveData<MyMeetingProfileViewState> getMeetingProfileViewStateLiveData (long meetingId) {
+        return Transformations.map(
+                mMeetingRepository.getThisMeetingLiveData(meetingId),
+                meeting -> new MyMeetingProfileViewState
+                        (meeting.getName(), meeting.getDate(),
+                          meeting.getHour(), meeting.getSubject(),
+                                meeting.getMail()));
+    }
+
 }

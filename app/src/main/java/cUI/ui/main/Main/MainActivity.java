@@ -3,62 +3,50 @@ package cUI.ui.main.Main;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.maru.Model.Meeting;
 import com.example.maru.R;
-import com.example.maru.databinding.ActivityMain2Binding;
-import com.google.android.material.tabs.TabLayout;
 
-import cUI.ui.main.Fragment.FragmentStatePagerAdapter;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
-    public MainActivity(){
+public class MainActivity extends AppCompatActivity implements ExampleAdapter.MeetingClickInterface {
+    public MainActivity() {
         super(R.layout.activity_main2);
     }
-    ActivityMain2Binding mBinding;
-    FragmentStatePagerAdapter mAdapter;
+
+    private ExampleAdapter mAdapter;
+    private MeetingVeiwModel mVeiwModel;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
+private MeetingVeiwModel mMeetingVeiwModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = ActivityMain2Binding.inflate(getLayoutInflater());
-        setContentView(mBinding.getRoot());
+        setContentView(R.layout.activity_main2);
 
-        FragmentManager fm = getSupportFragmentManager();
-        mAdapter = new FragmentStatePagerAdapter(fm, getLifecycle());
-        mBinding.viewPager.setAdapter(mAdapter);
-
-        mBinding.tabs.addTab(mBinding.tabs.newTab().setText("My Réu"));
-        mBinding.tabs.addTab(mBinding.tabs.newTab().setText("Par Date"));
-        mBinding.tabs.addTab(mBinding.tabs.newTab().setText("Par Salle"));
-
-        mBinding.tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mBinding.viewPager.setCurrentItem(tab.getPosition());
-            }
+        RecyclerView mRecyclerView = findViewById(R.id.recyclerviewMyReu);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mAdapter = new ExampleAdapter(Meeting.sItemCallback, this);
+        mRecyclerView.setAdapter(mAdapter);
+        mMeetingVeiwModel = new ViewModelProvider(this).get(MeetingVeiwModel.class);
+        mMeetingVeiwModel.getMeetingLiveData().observe(this, new Observer<List<Meeting>>(){
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+            public void onChanged(List<Meeting> meetings) {
+                mAdapter.submitList(meetings);
             }
         });
-        mBinding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                mBinding.tabs.selectTab(mBinding.tabs.getTabAt(position));
-            }
-        });
+
 
     }
 
@@ -67,5 +55,33 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.add_filter_menu, menu);
         return true;
+    }
+
+    @Override
+    public void onDelete(int position) {
+    mMeetingVeiwModel.deleteMeeting(position);
+
+
+    }
+
+    @Override
+    public void onDelete() {
+
+    }
+
+
+    public void addItem(View view) {
+        //TODO metre par raport addMeeting class
+     // mMeetingVeiwModel.addMeeting();
+
+
+    }
+    private List<Meeting> initMeetingList() {
+        List<Meeting> meetingList = new ArrayList<>();
+        return meetingList;
+
+    }
+    public  void updateItem() {
+
     }
 }

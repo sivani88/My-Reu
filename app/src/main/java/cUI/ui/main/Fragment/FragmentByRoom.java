@@ -1,20 +1,15 @@
 package cUI.ui.main.Fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.maru.R;
-import com.example.maru.databinding.FragmentFilterByRoomBinding;
 
-
-public class FragmentFilterByRoom extends Fragment {
-FragmentFilterByRoomBinding mRoomBinding;
-
+public class FragmentByRoom extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,3 +27,4 @@ FragmentFilterByRoomBinding mRoomBinding;
         return inflater.inflate(R.layout.fragment_filter_by_room, container, false);
     }
 }
+
