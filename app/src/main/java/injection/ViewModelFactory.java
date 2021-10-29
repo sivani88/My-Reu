@@ -42,7 +42,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
 
     public ViewModelFactory(@NonNull MeetingRepository meetingRepository) {
         mMeetingRepository = meetingRepository;
-        Log.e("fdsdf: ", String.valueOf(mMeetingRepository.getMeetingLiveData().getValue().size()));
+        Log.e("fdsdf: ", String.valueOf(mMeetingRepository.getMeetings().size()));
     }
 
     @NonNull

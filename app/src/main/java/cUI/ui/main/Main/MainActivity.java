@@ -26,7 +26,7 @@ import cUI.ui.main.AddMeeting.AddMeetingActivity;
 import cUI.ui.main.MyMeetinProfile.MyMeetingProfileActivity;
 import injection.ViewModelFactory;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements OnItemClickListener {
     public MainActivity() {
         super(R.layout.activity_main2);
     }
@@ -61,38 +61,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mViewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(MeetingViewModel.class);
         Log.e("TEST:", String.valueOf(mViewModel.getMeetingLiveData().getValue().size()));
-        mAdapter = new ExampleAdapter(new OnItemClickListener() {
-            @Override
-            public void onItemClick(long meetingId) {
-                startActivity(MyMeetingProfileActivity.navigate(this, meetingId));
-            }
-
-            @Override
-            public void onDeleteClick(long meetingId) {
-                mMeetingViewModel.onDeleteMeetingClicked(meetingId);
-            }
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onPointerCaptureChanged(boolean hasCapture) {
-
-            }
+        mViewModel.getMeetingLiveData().observe(this, meetingList -> {
+/*            for (int i = 0; i < meetingList.size(); i++) {
+                mViewModel.updateMeeting(meetingList.get(i), i);
+            }*/
+            mAdapter = new ExampleAdapter(this, meetingList);
+            mRecyclerView.setAdapter(mAdapter);
         });
-        mViewModel.getMeetingLiveData().observe(this, new Observer<List<Meeting>>() {
-            @Override
-            public void onChanged(List<Meeting> meetingList) {
-                for (int i = 0; i < meetingList.size(); i++) {
-                    mViewModel.updateMeeting(meetingList.get(i), i);
-                }
-            }
-        });
-        mRecyclerView.setAdapter(mAdapter);
-        Log.e("TEST:", String.valueOf(mRecyclerView.getAdapter().getItemCount()));
-
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,8 +80,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @Override
+    public void onItemClick(long meetingId) {
+        startActivity(MyMeetingProfileActivity.navigate(this, meetingId));
+    }
+
+    @Override
+    public void onDeleteClick(long meetingId) {
+        mMeetingViewModel.onDeleteMeetingClicked(meetingId);
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
 }

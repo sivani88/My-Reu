@@ -36,6 +36,7 @@
             android:id="@+id/recyclerviewMyReu"
             android:layout_width="404dp"
             android:layout_height="591dp"
+            tools:listitem="@layout/example_item"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -51,7 +52,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.835"
-            app:srcCompat="@drawable/ic_baseline_add" />
+            app:srcCompat="@drawable/ic_baseline_add"
+            android:focusable="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

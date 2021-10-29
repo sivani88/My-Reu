@@ -60,11 +60,9 @@ public class MeetingViewModel extends ViewModel {
     private void initMeetingList() {
         if (mMutableLiveData != null) {
             return;
-
-
         }
         mMutableLiveData = new MutableLiveData<>();
-        mMutableLiveData.setValue(mRepository.getMeetingLiveData().getValue());
+        mMutableLiveData.setValue(mRepository.getMeetings());
     }
 
     public void deleteMeeting(int position) {

@@ -2,7 +2,6 @@ package repository;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
 import com.example.maru.Model.Meeting;
@@ -12,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class MeetingRepository {
-    private final MutableLiveData<List<Meeting>> meetingsLiveData = new MutableLiveData<>(new ArrayList<>());
+    private List<Meeting> meetings = new ArrayList<>();
     private long maxId = 0;
     private Meeting meeting;
 
@@ -38,11 +37,11 @@ public class MeetingRepository {
             @NonNull String avatarUrl
 
     ) {
-        List<Meeting> meetings = meetingsLiveData.getValue();
+        List<Meeting> meetings = this.meetings;
         if (meetings == null) return;
 
         meetings.add(new Meeting(maxId++, subject, mMail, mName, mDate, mHour, false, avatarUrl));
-        meetingsLiveData.setValue(meetings);
+        this.meetings = meetings;
     }
 
     public void addMeetingFirst(
@@ -54,15 +53,15 @@ public class MeetingRepository {
 
 
     ) {
-        List<Meeting> meetings = meetingsLiveData.getValue();
+        List<Meeting> meetings = this.meetings;
         if (meetings == null) return;
 
         meetings.add(new Meeting(maxId++, subject, mMail, mDate, mHour));
-        meetingsLiveData.setValue(meetings);
+        this.meetings = meetings;
     }
 
     public void deleteMeeting(long meetingId) {
-        List<Meeting> meetings = meetingsLiveData.getValue();
+        List<Meeting> meetings = this.meetings;
 
         if (meetings == null) return;
 
@@ -76,12 +75,13 @@ public class MeetingRepository {
         }
     }
 
-    public LiveData<List<Meeting>> getMeetingLiveData() {
-        return meetingsLiveData;
+    public List<Meeting> getMeetings() {
+        return meetings;
     }
 
-    public LiveData<Meeting> getThisMeetingLiveData(long meetingId) {
-        return Transformations.map(meetingsLiveData, meetings -> {
+/*    public Meeting getMeetingById(long meetingId) {
+        // TODO: Refacto
+*//*        return Transformations.map(meetings, meetings -> {
             for (Meeting meeting : meetings) {
                 if (meeting.getId() == meetingId) {
                     return meeting;
@@ -89,9 +89,9 @@ public class MeetingRepository {
             }
             return null;
 
-        });
+        });*//*
 
-    }
+    }*/
 
 
     private void generateRandomMeeting() {

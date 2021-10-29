@@ -20,13 +20,13 @@ public class MyMeetingProfileViewModel extends ViewModel {
         mApplication = application;
         mMeetingRepository = meetingRepository;
     }
-    public LiveData<MyMeetingProfileViewState> getMeetingProfileViewStateLiveData (long meetingId) {
+/*    public LiveData<MyMeetingProfileViewState> getMeetingProfileViewStateLiveData (long meetingId) {
         return Transformations.map(
-                mMeetingRepository.getThisMeetingLiveData(meetingId),
+                mMeetingRepository.getMeetingById(meetingId),
                 meeting -> new MyMeetingProfileViewState
                         (meeting.getName(), meeting.getDate(),
                           meeting.getHour(), meeting.getSubject(),
                                 meeting.getMail()));
-    }
+    }*/
 
 }

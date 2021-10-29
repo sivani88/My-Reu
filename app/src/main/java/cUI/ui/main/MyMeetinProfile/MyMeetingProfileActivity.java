@@ -45,12 +45,12 @@ public class MyMeetingProfileActivity extends AppCompatActivity {
 
         }
         MyMeetingProfileViewModel mViewModel = new ViewModelProvider(this, ViewModelFactory.getInstance()).get(MyMeetingProfileViewModel.class);
-        mViewModel.getMeetingProfileViewStateLiveData(meetingId).observe(this, myMeetingProfileViewState -> {
+/*        mViewModel.getMeetingProfileViewStateLiveData(meetingId).observe(this, myMeetingProfileViewState -> {
             mNameRoom.setText(myMeetingProfileViewState.getName());
             mDateAndHour.setText(myMeetingProfileViewState.getDate());
             mDateAndHour.setText(myMeetingProfileViewState.getHour());
             mMail.setText(myMeetingProfileViewState.geteMails());
-        });
+        });*/
 
     }
 }

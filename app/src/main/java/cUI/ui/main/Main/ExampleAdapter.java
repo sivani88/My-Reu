@@ -3,7 +3,6 @@ package cUI.ui.main.Main;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,31 +23,20 @@ import com.example.maru.R;
 import java.util.List;
 import java.util.Set;
 
-public class ExampleAdapter extends ListAdapter<MeetingViewStateItem, ExampleAdapter.MeetingViewHolder> implements OnItemClickListener, Filterable {
+public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MeetingViewHolder> implements Filterable {
     private OnItemClickListener mListener;
-    private final MutableLiveData<Set<java.util.logging.Filter>> filters = new MutableLiveData<>();
-    private LiveData<List<Meeting>> mMeetingList;
-    private LiveData<List<Meeting>> mFilterListe;
+    private final MutableLiveData<Set<java.util.logging.Filter>> filters = new MutableLiveData<>(); // TODO: Enlever Livedata
+    private List<Meeting> mMeetingList;
+    private LiveData<List<Meeting>> mFilterListe; // TODO: Enlever Livedata
     private MeetingViewModel mMeetingViewModel;
     private static final String TAG = "ExampleAdapter";
 
 
-    public ExampleAdapter(OnItemClickListener listener, LiveData<List<Meeting>> meetingList) {
-        super(new ListMeetingItemCallback());
+    public ExampleAdapter(OnItemClickListener listener, List<Meeting> meetingList) {
+        super();
         mListener = listener;
         Filterable  mFilterable;
         this.mMeetingList = meetingList;
-
-
-    }
-
-
-    protected ExampleAdapter(@NonNull DiffUtil.ItemCallback diffCallback) {
-        super(diffCallback);
-    }
-
-    protected ExampleAdapter(@NonNull OnItemClickListener config) {
-        super((DiffUtil.ItemCallback<MeetingViewStateItem>) config);
     }
 
     @NonNull
@@ -60,29 +47,23 @@ public class ExampleAdapter extends ListAdapter<MeetingViewStateItem, ExampleAda
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MeetingViewHolder holder, int position) {
-        holder.bind(getItem(position), mListener);
+    public void onBindViewHolder(@NonNull ExampleAdapter.MeetingViewHolder holder, int position) {
+        Meeting meeting = mMeetingList.get(position);
+        holder.bind(meeting, mListener);
     }
+
+
 
     @Override
-    public void onItemClick(long meetingId) {
-
+    public int getItemCount() {
+        if (this.mMeetingList == null) {
+            return 0 ;
+        } else
+        {
+            return this.mMeetingList.size();
+        }
     }
 
-    @Override
-    public void onDeleteClick(long meetingId) {
-
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
 
     public void setMeetingList(List<Meeting> meetings) {
 
@@ -110,7 +91,7 @@ public class ExampleAdapter extends ListAdapter<MeetingViewStateItem, ExampleAda
      };*/
 
 
-    class MeetingViewHolder extends RecyclerView.ViewHolder {
+    static class MeetingViewHolder extends RecyclerView.ViewHolder {
 
         ImageView roomImage;
         ImageButton deleteButton;
@@ -128,7 +109,7 @@ public class ExampleAdapter extends ListAdapter<MeetingViewStateItem, ExampleAda
 
         }
 
-        public void bind(MeetingViewStateItem item, OnItemClickListener listener) {
+        public void bind(Meeting item, OnItemClickListener listener) {
             itemView.setOnClickListener(v -> listener.onItemClick(item.getId()));
             Glide.with(roomImage)
                     .load(item.getAvatarUrl())
@@ -142,19 +123,5 @@ public class ExampleAdapter extends ListAdapter<MeetingViewStateItem, ExampleAda
             deleteButton.setOnClickListener(v -> listener.onDeleteClick(item.getId()));
         }
     }
-
-    private static class ListMeetingItemCallback extends DiffUtil.ItemCallback<MeetingViewStateItem> {
-
-        @Override
-        public boolean areItemsTheSame(@NonNull MeetingViewStateItem oldItem, @NonNull MeetingViewStateItem newItem) {
-            return oldItem.getId() == newItem.getId();
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull MeetingViewStateItem oldItem, @NonNull MeetingViewStateItem newItem) {
-            return oldItem.equals(newItem);
-        }
-    }
-
 
 }
