@@ -1,7 +1,13 @@
 package cUI.ui.main.Main;
 
-public interface OnItemClickListener {
-    void onItemClick(int position);
-    void onDeleteClick(int Position);
+import android.view.View;
+import android.widget.AdapterView;
 
+public interface OnItemClickListener {
+    void onItemClick(long meetingId);
+    void onDeleteClick(long meetingId);
+
+    void onItemClick(AdapterView<?> parent, View view, int position, long id);
+
+    void onPointerCaptureChanged(boolean hasCapture);
 }

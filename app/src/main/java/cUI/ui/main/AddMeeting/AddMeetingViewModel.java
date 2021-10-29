@@ -42,8 +42,17 @@ public class AddMeetingViewModel extends ViewModel {
     public SingleLiveEvent<Void> getCloseActivitySingleLiveEvent() {
         return closeActivitySingleLiveEvent;
     }
+    public void onAddButtonClicked(String mMail, String mDate, String mHour, String mSubject) {
+        mRepository.addMeetingFirst(mMail, mDate, mHour, mSubject);
+        closeActivitySingleLiveEvent.call();
+    }
 
+    @NonNull
+    private String generateAvatarUrl() {
+        return avatarUrl;
+        //TODO liste des salle a faire
 
+    }
 
 
 }

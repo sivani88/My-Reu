@@ -24,6 +24,13 @@ public class Meeting {
     private String avatarUrl;
 
 
+    public Meeting(long l, @NonNull String subject, @NonNull String mail, @NonNull String date, @NonNull String hour) {
+        this.subject = subject;
+        mMail = mail;
+        mDate = date;
+        mHour = hour;
+    }
+
     public Meeting(long id, @NonNull String subject, @NonNull String mail, @NonNull String name, @NonNull String date, @NonNull String hour, boolean availability, @NonNull String avatarUrl) {
         this.id = id;
         this.subject = subject;
@@ -33,6 +40,7 @@ public class Meeting {
         mHour = hour;
         this.availability = availability;
         this.avatarUrl = avatarUrl;
+
     }
 
     public long getId() {

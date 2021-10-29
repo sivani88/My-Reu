@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.maru.R;
 
+import cUI.ui.main.Main.OnItemClickListener;
 import injection.ViewModelFactory;
 
 
@@ -17,12 +18,13 @@ public class MyMeetingProfileActivity extends AppCompatActivity {
 
     private static final String KEY_MEETING_ID = "KEY_MEETING_ID";
 
-    public static Intent navigate(Context context, long meetingID) {
-        Intent intent = new Intent(context, MyMeetingProfileActivity.class);
+    public static Intent navigate(OnItemClickListener context, long meetingID) {
+        Intent intent = new Intent((Context) context, MyMeetingProfileActivity.class);
 
         intent.putExtra(KEY_MEETING_ID, meetingID);
         return intent;
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
