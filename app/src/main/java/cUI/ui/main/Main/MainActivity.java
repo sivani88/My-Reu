@@ -71,13 +71,13 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
 
 
         mViewModel = new ViewModelProvider(this).get(MeetingViewModel.class);
-        mViewModel.getMutableLiveData().observe(this, meeting -> {
+        mViewModel.getMeetingsMutableLiveData().observe(this, meetings -> {
             mMeetings.clear();
-            mMeetings.addAll(meeting);
-            mRecyclerView.getAdapter().notifyDataSetChanged();
+            mMeetings.addAll(meetings);
+            mAdapter.setMeetingList(meetings);
             });
 
-        Log.e("nombre  view model", String.valueOf(mViewModel.getMutableLiveData().getValue().size()));
+        Log.e("nombre  view model", String.valueOf(mViewModel.getMeetingsMutableLiveData().getValue().size()));
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,19 +97,17 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
 
             }
         }).attachToRecyclerView(mRecyclerView);
-
-
     }
 
-    private void initList() {
-        mMeetings = mApiService.getMeetings();
-        mRecyclerView.setAdapter(new ExampleAdapter(this, mMeetings));
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mViewModel.fetchMeetings();
     }
-
 
     @Override
     public void onItemClick(long meetingId) {
-
+        // TODO: To implement
     }
 
     @Override
