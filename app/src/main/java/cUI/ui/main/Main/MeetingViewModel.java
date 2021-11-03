@@ -1,33 +1,70 @@
 package cUI.ui.main.Main;
 
-import androidx.lifecycle.LiveData;
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.maru.Model.Meeting;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Filter;
 
 import repository.MeetingRepository;
 
 public class MeetingViewModel extends ViewModel {
 
-    private static final String TAG = "MeetingViewModel";
-    private MutableLiveData<List<Meeting>> mMutableLiveData;
-    LiveData<List<Meeting>> mMeetings;
-    private MeetingRepository mRepository;
-    private final MutableLiveData<Set<Filter>> filters = new MutableLiveData<>();
-    private MeetingViewModel mMeetingViewModel;
-    private final LiveData<List<Meeting>> originalList = mMeetings;
-    private LiveData<List<Meeting>> mMeetinFiltred;
-    private final LiveData<List<Meeting>> filtredList = mMeetinFiltred ;
+    ArrayList<Meeting> mMeetings;
+    MutableLiveData<ArrayList<Meeting>> mMutableLiveData;
+    MeetingRepository mMeetingRepository;
+
+    public MutableLiveData<ArrayList<Meeting>> getMutableLiveData() {
+        return mMutableLiveData;
+    }
+
+    public void fetchMeetings() {
+        mMeetings = mMeetingRepository.getMeetings();
+        mMutableLiveData.setValue(mMeetings);
+        Log.e("fetchmeetings : ",String.valueOf(mMeetings.size()));
+
+    }
+
+    public void deleteMeeting(Meeting meeting) {
+        mMeetingRepository.deleteMeeting(meeting);
+        mMeetings.remove(meeting);
+        mMutableLiveData.setValue(mMeetings);
+
+    }
+
+    public void addMeeting(Meeting meeting) {
+        mMeetingRepository.addMeeting(meeting);
+        mMeetings.add(meeting);
+        mMutableLiveData.setValue(mMeetings);
 
 
-    public LiveData<List<Meeting>> getFiltredList() {
-        return filtredList;
+    }
+
+    public MeetingViewModel() {
+        mMeetingRepository = new MeetingRepository();
+        mMutableLiveData = new MutableLiveData<>();
+        fetchMeetings();
+        }
+
+
+    public long onDeleteMeetingClicked(long meetingId) {
+        return meetingId;
+    }
+
+    private void initMeetingList() {
+
+    }
+
+    public void deleteMeeting(CharSequence item) {
+    }
+
+
+
+  /* public LiveData<List<Meeting>> getFiltredList() {
+       return filtredList;
 
     }
     public LiveData<Set<Filter>> getFilter() {
@@ -44,61 +81,13 @@ public class MeetingViewModel extends ViewModel {
             remove(filter);
         }
 
-    }
-
-    public MeetingViewModel(MeetingRepository repository) {
-        mRepository = repository;
-        initMeetingList();
-    }
+    }*/
 
 
-    public LiveData<List<Meeting>> getMeetingLiveData() {
-
-        return mMutableLiveData;
-    }
-
-    private void initMeetingList() {
-        if (mMutableLiveData != null) {
-            return;
-        }
-        mMutableLiveData = new MutableLiveData<>();
-        mMutableLiveData.setValue(mRepository.getMeetings());
-    }
-
-    public void deleteMeeting(int position) {
-        if (mMutableLiveData.getValue() != null) {
-            List<Meeting> meetingList = new ArrayList<>(mMutableLiveData.getValue());
-            meetingList.remove(position);
-            mMutableLiveData.setValue(meetingList);
-        }
-
-    }
-
-    public void addMeeting(Meeting meeting) {
-        if (mMutableLiveData.getValue() != null) {
-            List<Meeting> meetingList = new ArrayList<>(mMutableLiveData.getValue());
-            meetingList.add(meeting);
-            mMutableLiveData.setValue(meetingList);
-        }
-
-    }
-
-    public void updateMeeting(Meeting newMeeting, int position) {
-        if (mMutableLiveData.getValue() != null) {
-            List<Meeting> meetingList = new ArrayList<>(mMutableLiveData.getValue());
-            meetingList.remove(position);
-            meetingList.add(position, newMeeting);
-            mMutableLiveData.setValue(meetingList);
-        }
-    }
-
-    public void onDeleteMeetingClicked(long meetingId) {
-        mRepository.deleteMeeting(meetingId);
-    }
-    public void onFilterSelected(Filter filter) {
-        mMeetingViewModel.addFilter(filter);
-    }
-    public  void onFilterDeselected(Filter filter) {
-        mMeetingViewModel.remove(filter);
-    }
+    // public void onFilterSelected(Filter filter) {
+    // mMeetingViewModel.addFilter(filter);
+    //  }
+    //  public  void onFilterDeselected(Filter filter) {
+    //    mMeetingViewModel.remove(filter);
+    //  }
 }

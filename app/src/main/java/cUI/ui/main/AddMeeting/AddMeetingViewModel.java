@@ -5,54 +5,68 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import ViewModel.SingleLiveEvent;
+import com.example.maru.Model.Meeting;
+
+import java.util.ArrayList;
+
 import repository.MeetingRepository;
 
 public class AddMeetingViewModel extends ViewModel {
-    @NonNull
-    private final MeetingRepository mRepository;
+
+    ArrayList<Meeting> mMeetings;
     private final MutableLiveData<Boolean> isSaveButtonEnabledMutableLiveData = new MutableLiveData<>(false);
-
-    private final String avatarUrl = generateAvatarUrl();
-
-    private final MutableLiveData<String> avatarUrlMutableLiveData = new MutableLiveData<>(avatarUrl);
-    private final SingleLiveEvent<Void> closeActivitySingleLiveEvent = new SingleLiveEvent<>();
+    MutableLiveData<ArrayList<Meeting>> mMutableLiveData;
+    MeetingRepository mMeetingRepository;
+    private String avatarUrl = generateAvatarUrl();
 
 
-    public AddMeetingViewModel(@NonNull MeetingRepository repository) {
+    public MutableLiveData<ArrayList<Meeting>> getMutableLiveData() {
+        return mMutableLiveData;
 
-        this.mRepository = repository;
     }
+
+    AddMeetingViewModel( MeetingRepository repository) {
+        this.mMeetingRepository = repository;
+    }
+
+    public AddMeetingViewModel() {
+        mMeetingRepository = new MeetingRepository();
+        mMutableLiveData = new MutableLiveData<>();
+
+    }
+
+
 
     public LiveData<Boolean> getIsSaveButtonEnabledLiveData() {
         return isSaveButtonEnabledMutableLiveData;
-    }
+ }
 
-    public LiveData<String> getAvatarUrlLiveData() {
-        return avatarUrlMutableLiveData;
 
-    }
-
-    public void onNamechanged(String name) {
+    public void onNameChanged(String name) {
         isSaveButtonEnabledMutableLiveData.setValue(!name.isEmpty());
 
 
     }
 
-    public SingleLiveEvent<Void> getCloseActivitySingleLiveEvent() {
-        return closeActivitySingleLiveEvent;
-    }
-    public void onAddButtonClicked(String mMail, String mDate, String mHour, String mSubject) {
-        mRepository.addMeetingFirst(mMail, mDate, mHour, mSubject);
-        closeActivitySingleLiveEvent.call();
+
+    public void saveNewMeeting(String mMail, String mDate, String mHour, String mSubject) {
+        mMeetingRepository.addMeetingFirst(mMail, mDate, mHour, mSubject);
+
+
     }
 
     @NonNull
     private String generateAvatarUrl() {
         return avatarUrl;
-        //TODO liste des salle a faire
+        //TODO liste des salle a faire switch case
 
     }
+
+
+    private void finalize(AddMeetingViewModel viewModel) {
+
+    }
+
 
 
 }

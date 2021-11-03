@@ -13,47 +13,56 @@
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="195dp"
-        android:layout_height="46dp"
+        android:layout_width="433dp"
+        android:layout_height="74dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <SearchView
         android:id="@+id/searchView"
-        android:layout_width="214dp"
-        android:layout_height="54dp"
+        android:layout_width="488dp"
+        android:layout_height="83dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="405dp"
-        android:layout_height="547dp"
+        android:layout_width="953dp"
+        android:layout_height="1471dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner">
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerviewMyReu"
-            android:layout_width="404dp"
-            android:layout_height="591dp"
-            tools:listitem="@layout/example_item"
+            android:layout_width="952dp"
+            android:layout_height="1468dp"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.276"
+            tools:listitem="@layout/example_item" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButtonadd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="128dp"
+            android:layout_height="125dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="184dp"
             android:clickable="true"
             android:contentDescription="@string/Flotingactionbutton"
             android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.845"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.835"
             app:srcCompat="@drawable/ic_baseline_add" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

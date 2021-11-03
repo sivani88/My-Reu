@@ -5,9 +5,12 @@ import android.widget.AdapterView;
 
 public interface OnItemClickListener {
     void onItemClick(long meetingId);
+
+
+    void onItemClickFirst(int position);
+
     void onDeleteClick(long meetingId);
+    void onItemSelected(AdapterView<?> parent, View view, int position, long id);
 
-    void onItemClick(AdapterView<?> parent, View view, int position, long id);
-
-    void onPointerCaptureChanged(boolean hasCapture);
+    void onNothingSelected(AdapterView<?> parent);
 }

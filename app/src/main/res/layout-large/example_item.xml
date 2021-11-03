@@ -8,15 +8,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="119dp">
+        android:layout_height="142dp">
 
         <ImageView
             android:id="@+id/item_list_user_avatar"
-            android:layout_width="75dp"
-            android:layout_height="74dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="35dp"
+            android:layout_width="124dp"
+            android:layout_height="114dp"
+            android:layout_marginStart="24dp"
             android:contentDescription="@string/avatar_rond"
             android:scaleType="centerCrop"
             android:src="@drawable/circle"
@@ -26,57 +24,65 @@
 
         <TextView
             android:id="@+id/email"
-            android:layout_width="300dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="48dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="415dp"
+            android:layout_height="67dp"
+            android:layout_marginStart="20dp"
             android:contentDescription="@string/Email"
             android:maxLines="1"
             android:text="@string/Email"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item_list_user_avatar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.82" />
 
         <TextView
             android:id="@+id/NomSalle"
-            android:layout_width="104dp"
-            android:layout_height="31dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="12dp"
+            android:layout_width="142dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="13dp"
             android:contentDescription="@string/nom_de_la_salle"
             android:maxLines="1"
             android:text="@string/nom_de_la_salle"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="12sp"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/email"
             app:layout_constraintStart_toEndOf="@+id/item_list_user_avatar"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/heure"
-            android:layout_width="80dp"
-            android:layout_height="31dp"
+            android:layout_width="122dp"
+            android:layout_height="40dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:text="@string/heure_de_reunion"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="12sp"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/email"
             app:layout_constraintStart_toEndOf="@+id/NomSalle"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/sujet"
-            android:layout_width="94dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_width="148dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="18dp"
             android:maxLines="1"
             android:text="@string/sujet_de_la_reunion"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/heure"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

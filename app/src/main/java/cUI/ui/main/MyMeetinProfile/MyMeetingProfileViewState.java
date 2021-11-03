@@ -1,26 +1,15 @@
 package cUI.ui.main.MyMeetinProfile;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import java.util.Objects;
-
 public class MyMeetingProfileViewState  {
 
-    @NonNull
-    private final String mName;
-    @NonNull
+   /* private final String mName;
     private String avatarUrl;
-    @NonNull
     private final String  mDate;
-    @NonNull
     private final String mHour;
-    @NonNull
     private final String subject;
-    @NonNull
     private final String eMails;
 
-    public MyMeetingProfileViewState(@NonNull String name, @NonNull String date, @NonNull String hour, @NonNull String subject, @NonNull String eMails) {
+    public MyMeetingProfileViewState( String name,  String date, String hour,  String subject,  String eMails) {
         mName = name;
         mDate = date;
         mHour = hour;
@@ -28,7 +17,7 @@ public class MyMeetingProfileViewState  {
         this.eMails = eMails;
     }
 
-    public MyMeetingProfileViewState(@NonNull String name, @NonNull String avatarUrl, @NonNull String date, @NonNull String hour, @NonNull String subject, @NonNull String eMails) {
+    public MyMeetingProfileViewState( String name,  String avatarUrl, String date, String hour,  String subject,  String eMails) {
         this.mName = name;
         this.avatarUrl = avatarUrl;
         mDate = date;
@@ -37,32 +26,32 @@ public class MyMeetingProfileViewState  {
         this.eMails = eMails;
     }
 
-    @NonNull
+
     public String getAvatarUrl() {
         return avatarUrl;
     }
 
-    @NonNull
+
     public String getDate() {
         return mDate;
     }
 
-    @NonNull
+
     public String getHour() {
         return mHour;
     }
 
-    @NonNull
+
     public String getSubject() {
         return subject;
     }
 
-    @NonNull
+
     public String geteMails() {
         return eMails;
     }
 
-    @NonNull
+
     public String getName() {
         return mName;
     }
@@ -96,7 +85,7 @@ public class MyMeetingProfileViewState  {
                 ", subject='" + subject + '\'' +
                 ", eMails='" + eMails + '\'' +
                 '}';
-    }
+    }*/
 }
 
 

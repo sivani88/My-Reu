@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="cUI.ui.main.MyMeetinProfile.MyMeetingProfileActivity">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView2"
+            android:layout_width="433dp"
+            android:layout_height="142dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle"
+            android:contentDescription="@string/Desein_pour_activiter_profile"
+            android:src="@drawable/meeting"
+            app:layout_constraintBottom_toTopOf="@+id/NamePlace"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/NamePlace"
+            android:layout_width="279dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="184dp"
+            android:layout_marginEnd="374dp"
+            android:hint="@string/nom_de_la_salle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/HeureDateMeeting"
+            android:layout_width="277dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/heure_de_reunion"
+            android:text="@string/heure_de_reunion"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/NamePlace" />
+
+        <TextView
+            android:id="@+id/Sujet"
+            android:layout_width="286dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="335dp"
+            android:layout_marginTop="184dp"
+            android:layout_marginEnd="62dp"
+            android:contentDescription="@string/sujet_de_la_reunion"
+            android:text="@string/sujet_de_la_reunion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textHeure"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/Heure"
+            android:text="@string/Heure"
+            app:layout_constraintStart_toEndOf="@+id/HeureDateMeeting"
+            app:layout_constraintTop_toBottomOf="@+id/Sujet" />
+
+        <TextView
+            android:id="@+id/Email"
+            android:layout_width="603dp"
+            android:layout_height="106dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="304dp"
+            android:layout_marginEnd="50dp"
+            android:contentDescription="@string/Email"
+            android:padding="8dp"
+            android:text="@string/Mail_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout></ScrollView>
+
+

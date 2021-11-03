@@ -1,22 +1,6 @@
-package injection;
+package configure.injection;
 
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-
-import com.example.maru.Model.Meeting;
-
-import cUI.ui.main.AddMeeting.AddMeetingActivity;
-import cUI.ui.main.AddMeeting.AddMeetingViewModel;
-import cUI.ui.main.Main.MainApplication;
-import cUI.ui.main.Main.MeetingViewModel;
-import cUI.ui.main.MyMeetinProfile.MyMeetingProfileActivity;
-import cUI.ui.main.MyMeetinProfile.MyMeetingProfileViewModel;
-import repository.MeetingRepository;
-
-public class ViewModelFactory implements ViewModelProvider.Factory {
+public class ViewModelFactory  { /*implements ViewModelProvider.Factory
 
     private static ViewModelFactory sFactory;
   //  private MeetingRepository mRepository;
@@ -37,10 +21,10 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         return sFactory;
     }
 
-    @NonNull
+
     private final MeetingRepository mMeetingRepository;
 
-    public ViewModelFactory(@NonNull MeetingRepository meetingRepository) {
+    public ViewModelFactory( MeetingRepository meetingRepository) {
         mMeetingRepository = meetingRepository;
         Log.e("fdsdf: ", String.valueOf(mMeetingRepository.getMeetings().size()));
     }
@@ -58,5 +42,5 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         }
         throw new IllegalArgumentException("Unkonwn Viewmodel Class");
 
-    }
+    }*/
 }

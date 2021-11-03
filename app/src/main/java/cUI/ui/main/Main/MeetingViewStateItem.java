@@ -1,12 +1,7 @@
 package cUI.ui.main.Main;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import java.util.Objects;
-
 public class MeetingViewStateItem {
-    private final long id;
+   /* private final long id;
     @NonNull
     private final String mName;
 
@@ -93,5 +88,5 @@ public class MeetingViewStateItem {
                 ", mDate='" + mDate + '\'' +
                 ", mHour='" + mHour + '\'' +
                 '}';
-    }
+    }*/
 }

@@ -1,5 +1,6 @@
 package cUI.ui.main.Main;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,25 +11,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.maru.Model.Meeting;
 import com.example.maru.R;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MeetingViewHolder> implements Filterable {
     private OnItemClickListener mListener;
-    private final MutableLiveData<Set<java.util.logging.Filter>> filters = new MutableLiveData<>(); // TODO: Enlever Livedata
-    private List<Meeting> mMeetingList;
-    private LiveData<List<Meeting>> mFilterListe; // TODO: Enlever Livedata
-    private MeetingViewModel mMeetingViewModel;
+    private ArrayList<Meeting> mMeetingList;
+    private ArrayList<Meeting> mMeetingsFull;
     private static final String TAG = "ExampleAdapter";
 
 
@@ -36,20 +30,53 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MeetingV
         super();
         mListener = listener;
         Filterable  mFilterable;
-        this.mMeetingList = meetingList;
+        this.mMeetingList = (ArrayList<Meeting>) meetingList;
+        this.mMeetingsFull = new ArrayList<Meeting>(meetingList);
     }
 
     @NonNull
     @Override
     public MeetingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new MeetingViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.example_item, parent, false));
-       // Log.e(TAG, "ca marche pas", getItem());
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExampleAdapter.MeetingViewHolder holder, int position) {
         Meeting meeting = mMeetingList.get(position);
-        holder.bind(meeting, mListener);
+        holder.nameRoom.setText(meeting.getName());
+        holder.roomImage.setImageResource(meeting.getAvatarUrl());
+        holder.mDate.setText(meeting.getDate());
+        holder.eMail.setText(meeting.getMail());
+        holder.mSubject.setText(meeting.getSubject());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener != null) {
+                    Log.e("nombre meeting", String.valueOf(getItemId(position)));
+                    int position = holder.getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION) {
+                        mListener.onItemClick(position);
+                        Log.e("nombre meeting", String.valueOf(getItemId(position)));
+                    }
+                }
+            }
+        });
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener != null) {
+                    int position = holder.getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+
+
+                   mListener.onDeleteClick(position);
+
+                    }
+                }
+
+            }
+        });
     }
 
 
@@ -63,32 +90,56 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MeetingV
             return this.mMeetingList.size();
         }
     }
+    public Meeting getUser(int position) {
+        return this.mMeetingList.get(position);
+    }
+    public interface ItemClickListener{
+        public void onItemClick(int position);
 
+    }
 
     public void setMeetingList(List<Meeting> meetings) {
+        this.mMeetingList = mMeetingList;
+        notifyDataSetChanged();
 
     }
 
     @Override
     public Filter getFilter() {
-        return null;
+        return exampleFilter;
     }
 
-  /*
-    private final Filter mFilter = new Filter() {
+
+    private final Filter exampleFilter = new Filter() {
          @Override
          protected FilterResults performFiltering(CharSequence constraint) {
-             LiveData<List<Meeting>> mFilterListe;
-             if (constraint == null || constraint.length() ==0 ) {
 
-          }
+             ArrayList<Meeting> filteredList = new ArrayList<>();
+
+             if (constraint == null || constraint.length() == 0) {
+                 filteredList.addAll(mMeetingsFull);
+             }else {
+                 String filterPattern = constraint.toString().toLowerCase().trim();
+                 for (Meeting item : mMeetingsFull){
+                     if(item.getDate().toLowerCase().contains(filterPattern)){
+                         filteredList.add(item);
+                     }
+                 }
+             }
+             FilterResults results = new FilterResults();
+             results.values = filteredList;
+             return results;
          }
 
          @Override
          protected void publishResults(CharSequence constraint, FilterResults results) {
+             mMeetingList.clear();;
+             mMeetingList.addAll((List)results.values);
+             notifyDataSetChanged();
 
          }
-     };*/
+     };
+
 
 
     static class MeetingViewHolder extends RecyclerView.ViewHolder {
@@ -109,19 +160,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MeetingV
 
         }
 
-        public void bind(Meeting item, OnItemClickListener listener) {
-            itemView.setOnClickListener(v -> listener.onItemClick(item.getId()));
-            Glide.with(roomImage)
-                    .load(item.getAvatarUrl())
-                    .apply(RequestOptions.centerCropTransform())
-                    .into(roomImage);
-            nameRoom.setText(item.getName());
-            mSubject.setText(item.getSubject());
-            eMail.setText(item.getMail());
-            mDate.setText(item.getDate());
-            mDate.setText(item.getHour());
-            deleteButton.setOnClickListener(v -> listener.onDeleteClick(item.getId()));
-        }
+
     }
 
 }

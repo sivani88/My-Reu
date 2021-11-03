@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaRéu">
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/actions" />
+
         <activity
             android:name="cUI.ui.main.Main.MainActivity"
             android:label="@string/title_activity_main">
@@ -19,7 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name="cUI.ui.main.AddMeeting.AddMeetingActivity" />
-        <activity android:name="cUI.ui.main.MyMeetinProfile.MyMeetingProfileActivity" />
+        <activity android:name="cUI.ui.main.MyMeetinProfile.MyMeetingProfileActivity"
+            android:parentActivityName="cUI.ui.main.Main.MainActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"

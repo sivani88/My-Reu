@@ -18,21 +18,25 @@ import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.maru.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
 
 import cUI.ui.main.Main.MainActivity;
 
 public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener {
+   // private MeetingApiService mApiService;
+    private String mMeetinImage;
     EditText mSubject;
     Button buttonDate, buttonHour;
     EditText textDate, textHour;
     int mHour, mMinute, mYear, mMonth, mDay;
     AddMeetingViewModel viewModel;
 
-    public static void  navigate(MainActivity mainActivity) {
+    public static void navigate(MainActivity mainActivity) {
         Intent intent = new Intent(mainActivity, AddMeetingActivity.class);
         ActivityCompat.startActivity(mainActivity, intent, null);
 
@@ -45,27 +49,30 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         buttonDate = findViewById(R.id.buttonDate);
         buttonHour = findViewById(R.id.buttonHaour);
         textDate = findViewById(R.id.editTextDate);
-        textHour = findViewById(R.id.editTextDate);
+        textHour = findViewById(R.id.editTextTime);
         Button buttonSave = findViewById(R.id.buttonSubmit);
-        Button buttonFindMeeting = findViewById(R.id.flotingactionbuttonADD);
+        FloatingActionButton buttonFindMeeting = findViewById(R.id.flotingactionbuttonADD);
         EditText mSubject = findViewById(R.id.editTextTextPersonName);
         MultiAutoCompleteTextView mMail = findViewById(R.id.multiAutoCompleteTextView);
-
+        //mApiService = DI.getMeetingApiService();
+        viewModel = new ViewModelProvider(this).get(AddMeetingViewModel.class);
 
         buttonDate.setOnClickListener(this);
         buttonHour.setOnClickListener(this);
         buttonFindMeeting.setOnClickListener(this);
         buttonSave.setOnClickListener(this);
 
-       bindName(viewModel, mSubject);
-       bindAddButton(viewModel, mSubject, mMail, textDate, textHour,
+        bindName(viewModel, mSubject);
+        bindAddButton(viewModel, mSubject, mMail, textDate, textHour,
                 buttonSave);
-       viewModel.getCloseActivitySingleLiveEvent().observe(this, avoid -> finish());
+        //viewModel.getClass(this).observe(this, avoid -> finish());
 
 
     }
-    public static Intent navigate(View.OnClickListener context) {
-        return  new Intent((Context) context, AddMeetingActivity.class);
+
+   public static void navigate(Context activity) {
+        Intent intent = new Intent(activity, AddMeetingActivity.class);
+        ActivityCompat.startActivity(activity, intent, null);
     }
 
     // @RequiresApi(api = Build.VERSION_CODES.N)
@@ -96,18 +103,20 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    textHour.setText(hourOfDay + ":" + minute);
+                    textHour.setText(hourOfDay + ":00");
+
                 }
             }, mHour, mMinute, false);
+            timePickerDialog.show();
         }
 
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home ) {
+        if (item.getItemId() == android.R.id.home) {
             finish();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -127,17 +136,24 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
             @Override
             public void afterTextChanged(Editable s) {
-                viewModel.onNamechanged(s.toString());
+                viewModel.onNameChanged(s.toString());
             }
         });
     }
+
+    private void onAddButtonClicked(String mMail, String mDate, String mHour, String mSubject) {
+        viewModel.saveNewMeeting(mMail, mDate, mHour, mSubject);
+        finish();
+    }
+
     private void bindAddButton(AddMeetingViewModel viewModel, EditText mSubject,
                                MultiAutoCompleteTextView mMail, EditText textDate, EditText textHour,
                                Button buttonSave) {
-        buttonSave.setOnClickListener(v-> viewModel.onAddButtonClicked(mMail.getText().toString(),
+        buttonSave.setOnClickListener(v -> onAddButtonClicked(mMail.getText().toString(),
                 mSubject.getText().toString(),
                 textHour.getText().toString(),
                 textDate.getText().toString()));
         viewModel.getIsSaveButtonEnabledLiveData().observe(this, isSaveButtonEnabled -> buttonSave.setEnabled(isSaveButtonEnabled));
+
     }
 }
