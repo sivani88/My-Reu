@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("par salle"));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager2.setCurrentItem(tab.getPosition());
@@ -58,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+
+        })
+    }
+
+ 
 
             }
         });
