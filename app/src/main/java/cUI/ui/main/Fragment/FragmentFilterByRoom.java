@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.maru.Model.Meeting;
@@ -22,37 +23,50 @@ import cUI.ui.main.Main.ExampleAdapter;
 import cUI.ui.main.Main.OnItemClickListener;
 import cUI.ui.main.MyMeetinProfile.MyMeetingProfileActivity;
 
-public class FragmentMyReu extends Fragment {
+public class FragmentFilterByRoom extends Fragment  implements ExampleAdapter.ItemClickListener {
+
     private MeetingApiService mApiService;
     private ArrayList<Meeting> mMeetings = new ArrayList<>();
     private ExampleAdapter mAdapter;
     public ListMeetingPagerAdapter mPagerAdapter;
-    private static final String MEETING_EXTRA = "meeting";
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
+    private static final String MEETING_EXTRA = "meeting";
 
-    public static FragmentMyReu getInstance(){
-        FragmentMyReu fragmentTwo = new FragmentMyReu();
-        return fragmentTwo;
+
+
+    public FragmentFilterByRoom(){
+        super(R.layout.fragment_filter_by_room);
+
+    }
+
+    public static FragmentFilterByRoom getInstance(){
+        FragmentFilterByRoom fragmentOne = new FragmentFilterByRoom();
+        return fragmentOne;
 
     }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return   inflater.inflate(R.layout.fragment_my_reu, container, false);
+        return   inflater.inflate(R.layout.fragment_filter_by_room, container, false);
 
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() !=  null) {
+
+        }
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mMeetings = mApiService.getMeetings();
-        RecyclerView recyclerView = view.findViewById(R.id.rcyclerview_my_reu);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerview_by_room);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
         ExampleAdapter adapter = new ExampleAdapter(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -65,17 +79,14 @@ public class FragmentMyReu extends Fragment {
 
         });
         recyclerView.setAdapter(adapter);
+
     }
 
 
 
 
+    @Override
+    public void onItemClick(int position) {
 
-      /*  mRecyclerView = f(R.id.rcyclerview_my_reu);
-        mAdapter = new ExampleAdapter(this, mMeetings);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setHasFixedSize(true);*/
-
-
+    }
 }

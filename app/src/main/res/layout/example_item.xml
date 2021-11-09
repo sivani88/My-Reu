@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="119dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_list_user_avatar"
             android:layout_width="75dp"
             android:layout_height="74dp"
@@ -18,16 +18,18 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="35dp"
             android:contentDescription="@string/avatar_rond"
+            android:paddingLeft="@dimen/_8sdp"
             android:scaleType="centerCrop"
             android:src="@drawable/circle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/email"
-            android:layout_width="300dp"
-            android:layout_height="59dp"
+            android:layout_width="284dp"
+            android:layout_height="60dp"
             android:layout_marginTop="48dp"
             android:layout_marginEnd="16dp"
             android:contentDescription="@string/Email"

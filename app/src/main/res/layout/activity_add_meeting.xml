@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,14 +25,16 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="168dp">
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/editTextDate"
                     android:layout_width="160dp"
                     android:layout_height="42dp"
-                    android:layout_marginTop="52dp"
-                    android:layout_marginBottom="21dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginEnd="32dp"
+                    android:clickable="true"
+                    android:editable="false"
                     android:elegantTextHeight="true"
                     android:ems="10"
                     android:gravity="center"
@@ -43,19 +43,17 @@
                     android:inputType="date"
                     android:textColorHint="@color/rose"
                     android:textSize="15sp"
-                    app:layout_constraintBottom_toTopOf="@+id/editTextTime"
-                    app:layout_constraintEnd_toEndOf="@+id/editTextTime"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/editTextTime"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/editTextTime"
-                    android:layout_width="160dp"
-                    android:layout_height="41dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_width="163dp"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="32dp"
+                    android:clickable="false"
+                    android:editable="false"
                     android:ems="10"
                     android:gravity="center"
                     android:hint="@string/Heure"
@@ -63,24 +61,8 @@
                     android:inputType="time"
                     android:textColorHint="@color/rose"
                     android:textSize="15sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/flotingactionbuttonADD"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/flotingactionbuttonADD"
-                    android:layout_width="67dp"
-                    android:layout_height="78dp"
-                    android:layout_marginEnd="4dp"
-                    android:clickable="true"
-                    android:contentDescription="@string/Find_a_date_and_a_houre"
-                    android:focusable="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.504"
-                    app:srcCompat="@android:drawable/ic_search_category_default" />
+                    app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
                 <TextView
                     android:id="@+id/FindADateAndHoure"
@@ -94,8 +76,6 @@
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toTopOf="@+id/editTextDate"
-                    app:layout_constraintEnd_toStartOf="@+id/flotingactionbuttonADD"
-                    app:layout_constraintHorizontal_bias="0.205"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.133" />
@@ -104,14 +84,14 @@
                     android:id="@+id/buttonDate"
                     android:layout_width="140dp"
                     android:layout_height="56dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="20dp"
                     android:contentDescription="@string/Find_a_date"
                     android:labelFor="@+id/Date"
                     android:text="@string/button_Date"
                     app:iconTint="#00BCD4"
-                    app:layout_constraintEnd_toEndOf="@+id/buttonHaour"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/buttonHaour"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.147"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/FindADateAndHoure"
                     tools:targetApi="o" />
 
@@ -125,10 +105,10 @@
                     android:text="@string/button_haour"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/editTextTime"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.396"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/buttonDate"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.136" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -149,15 +129,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="83dp"
                 android:autofillHints=""
+                android:padding="@dimen/_12sdp"
                 android:ems="10"
                 android:hint="@string/sujet_de_la_reunion"
                 android:inputType="textPersonName" />
 
             <MultiAutoCompleteTextView
-                android:layout_marginTop="8dp"
                 android:id="@+id/multiAutoCompleteTextView"
-                android:layout_width="402dp"
-                android:layout_height="0dp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="243dp"
+                android:layout_margin="8dp"
+                android:padding="@dimen/_12sdp"
                 android:layout_weight="1"
                 android:gravity="start"
                 android:hint="@string/Email" />

@@ -1,83 +1,86 @@
 package cUI.ui.main.Main;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.maru.Model.Meeting;
 import com.example.maru.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
 import Service.MeetingApiService;
 import cUI.ui.main.AddMeeting.AddMeetingActivity;
-import cUI.ui.main.MyMeetinProfile.MyMeetingProfileActivity;
+import cUI.ui.main.Fragment.ListMeetingPagerAdapter;
 
-public class MainActivity extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
     private MeetingApiService mApiService;
 
     public MainActivity() {
         super(R.layout.activity_main2);
     }
-    private ArrayList<Meeting> mMeetings = new ArrayList<>();
-    private ExampleAdapter mAdapter;
-    private MeetingViewModel mViewModel;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
-    public AddMeetingActivity mAddMeetingActivity;
-    private static  final String MEETING_EXTRA = "meeting";
 
+    private ArrayList<Meeting> mMeetings = new ArrayList<>();
+    public ListMeetingPagerAdapter mPagerAdapter;
 
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        TabLayout tabLayout= findViewById(R.id.tabLayoutMainActivity);
+        ViewPager2 viewPager2= findViewById(R.id.viewPager2MainActivity);
 
-        Spinner spinner = findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.roomms, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+        FragmentManager fm = getSupportFragmentManager();
+        mPagerAdapter =  new ListMeetingPagerAdapter(fm, getLifecycle());
+        viewPager2.setAdapter(mPagerAdapter);
 
+        tabLayout.addTab(tabLayout.newTab().setText("Mes Reunions"));
+        tabLayout.addTab(tabLayout.newTab().setText("par Dates"));
+        tabLayout.addTab(tabLayout.newTab().setText("par salle"));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager2.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+        })
+    }
+
+ 
+
+            }
+        });
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                tabLayout.selectTab(tabLayout.getTabAt(position));
+            }
+        });
 
 
 
 
         FloatingActionButton fab = findViewById(R.id.floatingActionButtonadd);
 
-        mRecyclerView = findViewById(R.id.recyclerviewMyReu);
-        mAdapter = new ExampleAdapter(this, mMeetings);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setHasFixedSize(true);
-
-
-        mViewModel = new ViewModelProvider(this).get(MeetingViewModel.class);
-        mViewModel.getMeetingsMutableLiveData().observe(this, meetings -> {
-            mMeetings.clear();
-            mMeetings.addAll(meetings);
-            mAdapter.setMeetingList(meetings);
-            });
-
-        Log.e("nombre  view model", String.valueOf(mViewModel.getMeetingsMutableLiveData().getValue().size()));
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,70 +88,9 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
                 AddMeetingActivity.navigate(v.getContext());
             }
         });
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-              mViewModel.deleteMeeting(adapter.getItem(viewHolder.getAdapterPosition()));
-
-            }
-        }).attachToRecyclerView(mRecyclerView);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mViewModel.fetchMeetings();
-    }
-
-    @Override
-    public void onItemClick(long meetingId) {
-        // TODO: To implement
-    }
-
-    @Override
-    public void onItemClickFirst(int position) {
-
-        Log.e("recyclerview: ", mRecyclerView.toString());
-        Intent intent = new Intent(MainActivity.this, MyMeetingProfileActivity.class);
-        intent.putExtra(MEETING_EXTRA, (Parcelable) mMeetings.get(position));
-        startActivity(intent);
-    }
-
-    @Override
-    public void onDeleteClick(long meetingId) {
-        mViewModel.onDeleteMeetingClicked(meetingId);
-    }
-
-
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
-
-        Toast.makeText(parent.getContext(),text, Toast.LENGTH_SHORT).show();
-           /* for (int i = 0; i<mMeetings.size();i++) {
-            if(mMeetings.get(i).getName()== text) {
-             mMeetings.get(i).getName();
-
-            }
-        } return ;*/
-        //TODO retourne recyclerview ?
 
 
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
 
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
 }

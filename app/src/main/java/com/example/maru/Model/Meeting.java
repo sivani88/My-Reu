@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Objects;
 
 
-
 public class Meeting implements Parcelable {
     private long id;
     private String subject;
@@ -67,7 +66,8 @@ public class Meeting implements Parcelable {
         dest.writeInt(avatarUrl);
     }
 
-    private static class MeetingRoom {
+
+    public static class MeetingRoom {
         public int avatarUrl;
         public String mName;
 
@@ -75,9 +75,18 @@ public class Meeting implements Parcelable {
             avatarUrl = mAvatarUrl;
             mName = name;
         }
+
+        public static int getAvatarUrl(String name) {
+            for (int i = 0; i < MEETING_ROOMS.size(); i++) {
+                if (MEETING_ROOMS.get(i).mName == name) {
+                    return MEETING_ROOMS.get(i).avatarUrl;
+                }
+            }
+            return 0;
+        }
     }
 
-    private static  List<MeetingRoom> MEETING_ROOMS = Arrays.asList(
+    private static List<MeetingRoom> MEETING_ROOMS = Arrays.asList(
             new MeetingRoom(R.drawable.london, "London"),
             new MeetingRoom(R.drawable.paris, "Paris"),
             new MeetingRoom(R.drawable.vienna, "Vienne"),
@@ -85,16 +94,12 @@ public class Meeting implements Parcelable {
             new MeetingRoom(R.drawable.barcelona, "Barcelona"),
             new MeetingRoom(R.drawable.berlin, "Berlin"),
             new MeetingRoom(R.drawable.newyork, "NewYork"),
-            new MeetingRoom(R.drawable.moscou , "Moscou"));
+            new MeetingRoom(R.drawable.moscou, "Moscou"));
 
-    public Meeting(long l, String subject,  String mail,  String date,  String hour) {
-        this.subject = subject;
-        mMail = mail;
-        mDate = date;
-        mHour = hour;
-    }
 
-    public Meeting(long id,  String subject,  String mail, String name, String date,  String hour, boolean availability,  int avatarUrl) {
+
+
+    public Meeting(long id, String subject, String mail, String name, String date, String hour, boolean availability, int avatarUrl) {
         this.id = id;
         this.subject = subject;
         mMail = mail;
@@ -105,7 +110,6 @@ public class Meeting implements Parcelable {
         this.avatarUrl = avatarUrl;
 
     }
-
 
 
     public long getId() {
@@ -130,7 +134,7 @@ public class Meeting implements Parcelable {
         return mMail;
     }
 
-    public void setMail( String mail) {
+    public void setMail(String mail) {
         mMail = mail;
     }
 
@@ -139,7 +143,7 @@ public class Meeting implements Parcelable {
         return mName;
     }
 
-    public void setName( String name) {
+    public void setName(String name) {
         mName = name;
     }
 
@@ -148,7 +152,7 @@ public class Meeting implements Parcelable {
         return mDate;
     }
 
-    public void setDate( String date) {
+    public void setDate(String date) {
         mDate = date;
     }
 
@@ -171,14 +175,18 @@ public class Meeting implements Parcelable {
 
 
     public int getAvatarUrl() {
-        for (int i = 0; i<MEETING_ROOMS.size(); i++) {
-            if (MEETING_ROOMS.get(i).mName == mName)  {
+        for (int i = 0; i < MEETING_ROOMS.size(); i++) {
+            if (MEETING_ROOMS.get(i).mName == mName) {
                 return MEETING_ROOMS.get(i).avatarUrl;
             }
         }
         return 0;
-
     }
+
+    public static List<MeetingRoom> getRoomList() {
+        return MEETING_ROOMS;
+    }
+
 
     public void setAvatarUrl() {
         //this.avatarUrl = avatarUrl;
@@ -206,17 +214,16 @@ public class Meeting implements Parcelable {
 
     public static DiffUtil.ItemCallback<Meeting> sItemCallback = new ItemCallback<Meeting>() {
         @Override
-        public boolean areItemsTheSame( Meeting oldItem,  Meeting newItem) {
+        public boolean areItemsTheSame(Meeting oldItem, Meeting newItem) {
 
             return Objects.equals(oldItem.getId(), newItem.getId());
         }
 
         @Override
-        public boolean areContentsTheSame( Meeting oldItem,  Meeting newItem) {
+        public boolean areContentsTheSame(Meeting oldItem, Meeting newItem) {
             return oldItem.equals(newItem);
         }
     };
-
 
 
 }
