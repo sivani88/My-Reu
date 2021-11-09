@@ -1,12 +1,11 @@
 package cUI.ui.main.Main;
 
-import android.util.Log;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,18 +19,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MeetingViewHolder> implements Filterable {
+    private Context mContext;
     private OnItemClickListener mListener;
     private ArrayList<Meeting> mMeetingList;
     private ArrayList<Meeting> mMeetingsFull;
     private static final String TAG = "ExampleAdapter";
 
 
-    public ExampleAdapter(OnItemClickListener listener, List<Meeting> meetingList) {
+    public ExampleAdapter(Context context, boolean listener, List<Meeting> meetingList) {
         super();
-        mListener = listener;
+        
         Filterable  mFilterable;
+        this.mContext = context;
         this.mMeetingList = (ArrayList<Meeting>) meetingList;
         this.mMeetingsFull = new ArrayList<Meeting>(meetingList);
+    }
+
+    public ExampleAdapter(OnItemClickListener listener) {
     }
 
     @NonNull
@@ -53,30 +57,16 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MeetingV
             @Override
             public void onClick(View v) {
                 if(mListener != null) {
-                    Log.e("nombre meeting", String.valueOf(getItemId(position)));
+
                     int position = holder.getAdapterPosition();
                     if(position != RecyclerView.NO_POSITION) {
                         mListener.onItemClick(position);
-                        Log.e("nombre meeting", String.valueOf(getItemId(position)));
+
                     }
                 }
             }
         });
-        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mListener != null) {
-                    int position = holder.getAdapterPosition();
-                    if(position != RecyclerView.NO_POSITION){
 
-
-                   mListener.onDeleteClick(position);
-
-                    }
-                }
-
-            }
-        });
     }
 
 
@@ -91,6 +81,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MeetingV
         }
     }
     public Meeting getUser(int position) {
+
         return this.mMeetingList.get(position);
     }
     public interface ItemClickListener{
@@ -100,7 +91,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MeetingV
 
     public void setMeetingList(List<Meeting> meetings) {
         this.mMeetingList = mMeetingList;
-        notifyDataSetChanged();
+
 
     }
 
@@ -135,7 +126,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MeetingV
          protected void publishResults(CharSequence constraint, FilterResults results) {
              mMeetingList.clear();;
              mMeetingList.addAll((List)results.values);
-             notifyDataSetChanged();
+
 
          }
      };
@@ -145,13 +136,11 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MeetingV
     static class MeetingViewHolder extends RecyclerView.ViewHolder {
 
         ImageView roomImage;
-        ImageButton deleteButton;
         TextView eMail, nameRoom, mDate, mSubject;
 
         public MeetingViewHolder(@NonNull View itemView) {
             super(itemView);
             roomImage = itemView.findViewById(R.id.item_list_user_avatar);
-            deleteButton = itemView.findViewById(R.id.poubelle);
             eMail = itemView.findViewById(R.id.email);
             nameRoom = itemView.findViewById(R.id.NomSalle);
             mDate = itemView.findViewById(R.id.heure);

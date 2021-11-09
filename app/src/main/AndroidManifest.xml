@@ -22,7 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="cUI.ui.main.AddMeeting.AddMeetingActivity" />
+        <activity android:name="cUI.ui.main.AddMeeting.AddMeetingActivity"
+            android:parentActivityName="cUI.ui.main.Main.MainActivity"/>
         <activity android:name="cUI.ui.main.MyMeetinProfile.MyMeetingProfileActivity"
             android:parentActivityName="cUI.ui.main.Main.MainActivity"/>
 

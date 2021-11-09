@@ -14,33 +14,35 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.maru.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
-import cUI.ui.main.Main.MainActivity;
+import Service.MeetingApiService;
+import configure.injection.DI;
 
 public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener {
-   // private MeetingApiService mApiService;
-    private String mMeetinImage;
+    private MeetingApiService mApiService;
     EditText mSubject;
-    Button buttonDate, buttonHour;
+    Button buttonDate, buttonHour, buttonSave;
     EditText textDate, textHour;
     int mHour, mMinute, mYear, mMonth, mDay;
-    AddMeetingViewModel viewModel;
+    MultiAutoCompleteTextView mMail;
 
-    public static void navigate(MainActivity mainActivity) {
-        Intent intent = new Intent(mainActivity, AddMeetingActivity.class);
-        ActivityCompat.startActivity(mainActivity, intent, null);
+    public static void navigate(Context context) {
+        Intent intent = new Intent(context, AddMeetingActivity.class);
+        ActivityCompat.startActivity(context, intent, null);
 
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,65 +52,20 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         buttonHour = findViewById(R.id.buttonHaour);
         textDate = findViewById(R.id.editTextDate);
         textHour = findViewById(R.id.editTextTime);
-        Button buttonSave = findViewById(R.id.buttonSubmit);
-        FloatingActionButton buttonFindMeeting = findViewById(R.id.flotingactionbuttonADD);
-        EditText mSubject = findViewById(R.id.editTextTextPersonName);
-        MultiAutoCompleteTextView mMail = findViewById(R.id.multiAutoCompleteTextView);
-        //mApiService = DI.getMeetingApiService();
-        viewModel = new ViewModelProvider(this).get(AddMeetingViewModel.class);
+        buttonSave = findViewById(R.id.buttonSubmit);
+        //FloatingActionButton buttonFindMeeting = findViewById(R.id.flotingactionbuttonADD);
+        mSubject = findViewById(R.id.editTextTextPersonName);
+        mMail = findViewById(R.id.multiAutoCompleteTextView);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mApiService = DI.getMeetingApiService();
+        init();
+
 
         buttonDate.setOnClickListener(this);
         buttonHour.setOnClickListener(this);
-        buttonFindMeeting.setOnClickListener(this);
+        //    buttonFindMeeting.setOnClickListener(this);
         buttonSave.setOnClickListener(this);
 
-        bindName(viewModel, mSubject);
-        bindAddButton(viewModel, mSubject, mMail, textDate, textHour,
-                buttonSave);
-        //viewModel.getClass(this).observe(this, avoid -> finish());
-
-
-    }
-
-   public static void navigate(Context activity) {
-        Intent intent = new Intent(activity, AddMeetingActivity.class);
-        ActivityCompat.startActivity(activity, intent, null);
-    }
-
-    // @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
-    public void onClick(View v) {
-        if (v == buttonDate) {
-            final Calendar calendar = Calendar.getInstance();
-            mYear = calendar.get(calendar.YEAR);
-            mMonth = calendar.get(Calendar.MONTH);
-            mDay = calendar.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    textDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
-
-
-                }
-            }, mYear, mMonth, mDay);
-            datePickerDialog.show();
-        }
-        if (v == buttonHour) {
-            final Calendar c = Calendar.getInstance();
-            mHour = c.get(Calendar.HOUR_OF_DAY);
-            // mMinute = c.get(Calendar.MINUTE);
-
-            TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    textHour.setText(hourOfDay + ":00");
-
-                }
-            }, mHour, mMinute, false);
-            timePickerDialog.show();
-        }
 
     }
 
@@ -121,9 +78,13 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         return super.onOptionsItemSelected(item);
     }
 
+    private void init() {
+        //mRoomName = mName;
+        // getName
+        // mMeetinImage= null;
+        //getImage
 
-    private void bindName(AddMeetingViewModel viewModel, EditText mSubject) {
-        mSubject.addTextChangedListener(new TextWatcher() {
+        textDate.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -136,24 +97,106 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
             @Override
             public void afterTextChanged(Editable s) {
-                viewModel.onNameChanged(s.toString());
+                buttonSave.setEnabled(s.length() > 0);
             }
         });
     }
 
-    private void onAddButtonClicked(String mMail, String mDate, String mHour, String mSubject) {
-        viewModel.saveNewMeeting(mMail, mDate, mHour, mSubject);
-        finish();
+    public void onButtonDateClick() {
+        final Calendar calendar = Calendar.getInstance();
+        mYear = calendar.get(calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH);
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                textDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+
+
+            }
+        }, mYear, mMonth, mDay);
+        datePickerDialog.show();
+
     }
 
-    private void bindAddButton(AddMeetingViewModel viewModel, EditText mSubject,
-                               MultiAutoCompleteTextView mMail, EditText textDate, EditText textHour,
-                               Button buttonSave) {
-        buttonSave.setOnClickListener(v -> onAddButtonClicked(mMail.getText().toString(),
-                mSubject.getText().toString(),
-                textHour.getText().toString(),
-                textDate.getText().toString()));
-        viewModel.getIsSaveButtonEnabledLiveData().observe(this, isSaveButtonEnabled -> buttonSave.setEnabled(isSaveButtonEnabled));
+    public void onButtonHourClick() {
+        final Calendar c = Calendar.getInstance();
+        mHour = c.get(Calendar.HOUR_OF_DAY);
+        // mMinute = c.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                textHour.setText(hourOfDay + ":00");
+
+            }
+        }, mHour, mMinute, false);
+        timePickerDialog.show();
 
     }
+
+    public void onButtonSaveClick() {
+        String room = mApiService.getAvailableRoom(textDate.getText().toString(), textHour.getText().toString());
+        if (room == null) {
+            Toast.makeText(this, "No Room Available", Toast.LENGTH_LONG).show();
+
+        } else {
+            mApiService.createMeeting(
+                    mSubject.getText().toString(),
+                    mMail.getText().toString(),
+                    room,
+                    textDate.getText().toString(),
+                    textHour.getText().toString()
+            );
+            Toast.makeText(this, room, Toast.LENGTH_LONG).show();
+            finish();
+        }
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == buttonDate) {
+            onButtonDateClick();
+        }
+        if (v == buttonHour) {
+            onButtonHourClick();
+        }
+        if (v == textDate) {
+            onButtonDateClick();
+        }
+        if (v == buttonSave) {
+            onButtonSaveClick();
+        }
+
+    }
+
+
+    private static class MeetingPlace {
+
+        public String mName;
+
+        public MeetingPlace(String name) {
+
+            mName = name;
+        }
+
+        public String getName() {
+            return mName;
+        }
+    }
+
+    private static List<MeetingPlace> MEETING_Place = Arrays.asList(
+            new MeetingPlace("London"),
+            new MeetingPlace("Paris"),
+            new MeetingPlace("Vienne"),
+            new MeetingPlace("Venise"),
+            new MeetingPlace("Barcelona"),
+            new MeetingPlace("Berlin"),
+            new MeetingPlace("NewYork"),
+            new MeetingPlace("Moscou"));
+
+
 }
