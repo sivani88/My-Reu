@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -29,7 +28,7 @@ import java.util.List;
 import Service.MeetingApiService;
 import configure.injection.DI;
 
-public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddMeetingActivity extends AppCompatActivity {
     private MeetingApiService mApiService;
     EditText mSubject;
     Button buttonDate, buttonHour, buttonSave;
@@ -53,7 +52,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         textDate = findViewById(R.id.editTextDate);
         textHour = findViewById(R.id.editTextTime);
         buttonSave = findViewById(R.id.buttonSubmit);
-        //FloatingActionButton buttonFindMeeting = findViewById(R.id.flotingactionbuttonADD);
         mSubject = findViewById(R.id.editTextTextPersonName);
         mMail = findViewById(R.id.multiAutoCompleteTextView);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -61,10 +59,9 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         init();
 
 
-        buttonDate.setOnClickListener(this);
-        buttonHour.setOnClickListener(this);
-        //    buttonFindMeeting.setOnClickListener(this);
-        buttonSave.setOnClickListener(this);
+        buttonDate.setOnClickListener(v -> onButtonDateClick());
+        buttonHour.setOnClickListener(v -> onButtonHourClick());
+        buttonSave.setOnClickListener(v -> onButtonSaveClick());
 
 
     }
@@ -79,11 +76,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void init() {
-        //mRoomName = mName;
-        // getName
-        // mMeetinImage= null;
-        //getImage
-
         textDate.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -156,22 +148,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v == buttonDate) {
-            onButtonDateClick();
-        }
-        if (v == buttonHour) {
-            onButtonHourClick();
-        }
-        if (v == textDate) {
-            onButtonDateClick();
-        }
-        if (v == buttonSave) {
-            onButtonSaveClick();
-        }
 
-    }
 
 
     private static class MeetingPlace {

@@ -24,8 +24,8 @@
 
         <TextView
             android:id="@+id/email"
-            android:layout_width="597dp"
-            android:layout_height="105dp"
+            android:layout_width="468dp"
+            android:layout_height="109dp"
             android:layout_marginStart="292dp"
             android:contentDescription="@string/Email"
             android:maxLines="2"
@@ -85,6 +85,17 @@
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/heure"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imageButtonDelete"
+            android:layout_width="167dp"
+            android:layout_height="116dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="25dp"
+            android:contentDescription="@string/Empty"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/icon_delete" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

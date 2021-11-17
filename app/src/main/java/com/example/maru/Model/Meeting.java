@@ -91,7 +91,7 @@ public class Meeting implements Parcelable {
             new MeetingRoom(R.drawable.paris, "Paris"),
             new MeetingRoom(R.drawable.vienna, "Vienne"),
             new MeetingRoom(R.drawable.venise, "Venise"),
-            new MeetingRoom(R.drawable.barcelona, "Barcelona"),
+            new MeetingRoom(R.drawable.barcelona, "Barcelone"),
             new MeetingRoom(R.drawable.berlin, "Berlin"),
             new MeetingRoom(R.drawable.newyork, "NewYork"),
             new MeetingRoom(R.drawable.moscou, "Moscou"));

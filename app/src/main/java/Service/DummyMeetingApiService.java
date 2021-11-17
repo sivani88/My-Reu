@@ -25,10 +25,10 @@ public class DummyMeetingApiService implements MeetingApiService {
 
     @Override
     public String getAvailableRoom(String date, String hour) {
-        for (int i=0; i<Meeting.getRoomList().size(); i++) {
+        for (int i = 0; i < Meeting.getRoomList().size(); i++) {
             String roomName = Meeting.getRoomList().get(i).mName;
             Boolean available = true;
-            for (int j=0; j<mMeetings.size(); j++) {
+            for (int j = 0; j < mMeetings.size(); j++) {
                 if ((date == mMeetings.get(j).getName()) && (hour == mMeetings.get(j).getHour())) {
                     available = false;
                     break;
@@ -44,25 +44,17 @@ public class DummyMeetingApiService implements MeetingApiService {
     private long getNextId() {
         long id = 0;
         for (int j = 0; j < mMeetings.size(); j++) {
-            if (id<mMeetings.get(j).getId()) {
+            if (id < mMeetings.get(j).getId()) {
                 id = mMeetings.get(j).getId();
             }
         }
-        return id +1;
+        return id + 1;
     }
 
     @Override
     public void createMeeting(String mSubject, String mMail, String mName, String mDate, String mHour) {
-        Meeting meeting = new Meeting(getNextId(),mSubject,mMail, mName, mDate, mHour, false, Meeting.MeetingRoom.getAvatarUrl(mName));
+        Meeting meeting = new Meeting(getNextId(), mSubject, mMail, mName, mDate, mHour, false, Meeting.MeetingRoom.getAvatarUrl(mName));
         mMeetings.add(meeting);
     }
 
- /*  public List<Meeting> getFillteredRoomsMeetings() {
-        List<Meeting> filterRooms= new ArrayList<>();
-        for (int i = 0; i< mMeetings.size();i++) {
-            if(mMeetings.get(i).setName()== mName) {
-                return filterRooms.
-            }
-        }
-  }*/
 }

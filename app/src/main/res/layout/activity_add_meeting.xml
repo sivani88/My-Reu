@@ -33,8 +33,7 @@
                     android:layout_height="42dp"
                     android:layout_marginTop="60dp"
                     android:layout_marginEnd="32dp"
-                    android:clickable="true"
-                    android:editable="false"
+                    android:clickable="false"
                     android:elegantTextHeight="true"
                     android:ems="10"
                     android:gravity="center"
@@ -53,7 +52,6 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="32dp"
                     android:clickable="false"
-                    android:editable="false"
                     android:ems="10"
                     android:gravity="center"
                     android:hint="@string/Heure"
@@ -129,16 +127,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="83dp"
                 android:autofillHints=""
-                android:padding="@dimen/_12sdp"
+                android:padding="@dimen/_16sdp"
                 android:ems="10"
                 android:hint="@string/sujet_de_la_reunion"
                 android:inputType="textPersonName" />
 
             <MultiAutoCompleteTextView
                 android:id="@+id/multiAutoCompleteTextView"
-
-                android:layout_width="wrap_content"
-                android:layout_height="243dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_margin="8dp"
                 android:padding="@dimen/_12sdp"
                 android:layout_weight="1"

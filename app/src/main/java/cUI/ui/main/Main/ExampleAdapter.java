@@ -1,11 +1,11 @@
 package cUI.ui.main.Main;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,140 +16,126 @@ import com.example.maru.Model.Meeting;
 import com.example.maru.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.MeetingViewHolder> implements Filterable {
-    private Context mContext;
-    private OnItemClickListener mListener;
+public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExempleViewHolder> implements Filterable {
+
+
+    private OnItemclickListener mListener;
     private ArrayList<Meeting> mMeetingList;
-    private ArrayList<Meeting> mMeetingsFull;
+    private ArrayList<Meeting> mMeetingsListOriginal;
     private static final String TAG = "ExampleAdapter";
 
+    public interface OnItemclickListener {
+        void onItemClick(int position);
 
-    public ExampleAdapter(Context context, boolean listener, List<Meeting> meetingList) {
-        super();
-        
-        Filterable  mFilterable;
-        this.mContext = context;
-        this.mMeetingList = (ArrayList<Meeting>) meetingList;
-        this.mMeetingsFull = new ArrayList<Meeting>(meetingList);
-    }
-
-    public ExampleAdapter(OnItemClickListener listener) {
-    }
-
-    @NonNull
-    @Override
-    public MeetingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MeetingViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.example_item, parent, false));
+        void onDeleteClick(int position);
 
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ExampleAdapter.MeetingViewHolder holder, int position) {
-        Meeting meeting = mMeetingList.get(position);
-        holder.nameRoom.setText(meeting.getName());
-        holder.roomImage.setImageResource(meeting.getAvatarUrl());
-        holder.mDate.setText(meeting.getDate());
-        holder.eMail.setText(meeting.getMail());
-        holder.mSubject.setText(meeting.getSubject());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mListener != null) {
+    public void setOnItemClickListener(OnItemclickListener listener) {
+        mListener = listener;
+    }
 
-                    int position = holder.getAdapterPosition();
-                    if(position != RecyclerView.NO_POSITION) {
-                        mListener.onItemClick(position);
+    public ExampleAdapter(ArrayList<Meeting> meetingList) {
+       // mListener = listener;
+        mMeetingList = meetingList;
+       this.mMeetingsListOriginal = new ArrayList<>(meetingList);
+    }
 
+    public static class ExempleViewHolder extends RecyclerView.ViewHolder {
+        public ImageView mAvatar;
+        public TextView mDay, mSubject, mMails, mName;
+        ImageButton mButtonDelete;
+
+
+        public ExempleViewHolder(@NonNull View itemView, OnItemclickListener listener) {
+            super(itemView);
+            mAvatar = itemView.findViewById(R.id.item_list_user_avatar);
+            mDay = itemView.findViewById(R.id.heure);
+            mMails = itemView.findViewById(R.id.email);
+            mName = itemView.findViewById(R.id.NomSalle);
+            mSubject = itemView.findViewById(R.id.sujet);
+            mButtonDelete = itemView.findViewById(R.id.imageButtonDelete);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
                     }
                 }
-            }
-        });
+            });
+            mButtonDelete.setOnClickListener(v -> {
+                if (listener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.onDeleteClick(position);
+                    }
+                }
+            });
 
-    }
 
-
-
-    @Override
-    public int getItemCount() {
-        if (this.mMeetingList == null) {
-            return 0 ;
-        } else
-        {
-            return this.mMeetingList.size();
         }
-    }
-    public Meeting getUser(int position) {
-
-        return this.mMeetingList.get(position);
-    }
-    public interface ItemClickListener{
-        public void onItemClick(int position);
-
-    }
-
-    public void setMeetingList(List<Meeting> meetings) {
-        this.mMeetingList = mMeetingList;
-
-
     }
 
     @Override
     public Filter getFilter() {
-        return exampleFilter;
+        return meetingFilter;
     }
 
+    private Filter meetingFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<Meeting> filteredMeetingList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                filteredMeetingList.addAll(mMeetingsListOriginal);
 
-    private final Filter exampleFilter = new Filter() {
-         @Override
-         protected FilterResults performFiltering(CharSequence constraint) {
-
-             ArrayList<Meeting> filteredList = new ArrayList<>();
-
-             if (constraint == null || constraint.length() == 0) {
-                 filteredList.addAll(mMeetingsFull);
-             }else {
-                 String filterPattern = constraint.toString().toLowerCase().trim();
-                 for (Meeting item : mMeetingsFull){
-                     if(item.getDate().toLowerCase().contains(filterPattern)){
-                         filteredList.add(item);
-                     }
-                 }
-             }
-             FilterResults results = new FilterResults();
-             results.values = filteredList;
-             return results;
-         }
-
-         @Override
-         protected void publishResults(CharSequence constraint, FilterResults results) {
-             mMeetingList.clear();;
-             mMeetingList.addAll((List)results.values);
-
-
-         }
-     };
-
-
-
-    static class MeetingViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView roomImage;
-        TextView eMail, nameRoom, mDate, mSubject;
-
-        public MeetingViewHolder(@NonNull View itemView) {
-            super(itemView);
-            roomImage = itemView.findViewById(R.id.item_list_user_avatar);
-            eMail = itemView.findViewById(R.id.email);
-            nameRoom = itemView.findViewById(R.id.NomSalle);
-            mDate = itemView.findViewById(R.id.heure);
-            mSubject = itemView.findViewById(R.id.sujet);
-
-
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (Meeting meeting : mMeetingsListOriginal) {
+                    if ((meeting.getDate().toLowerCase().contains(filterPattern)) || (meeting.getName().toLowerCase().contains(filterPattern))) {
+                        filteredMeetingList.add(meeting);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredMeetingList;
+            results.count = filteredMeetingList.size();
+            return results;
         }
 
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mMeetingList.clear();
+            mMeetingList.addAll((ArrayList) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
+    @NonNull
+    @Override
+    public ExempleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.example_item, parent, false);
+        ExempleViewHolder mHolder = new ExempleViewHolder(v, mListener);
+        return mHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ExempleViewHolder holder, int position) {
+        Meeting currentMeeting = mMeetingList.get(position);
+        holder.mName.setText(currentMeeting.getName());
+        holder.mSubject.setText(currentMeeting.getSubject());
+        holder.mMails.setText(currentMeeting.getMail());
+        holder.mDay.setText(currentMeeting.getDate());
+        holder.mAvatar.setImageResource(currentMeeting.getAvatarUrl());
 
     }
 
+    @Override
+    public int getItemCount() {
+        return mMeetingList.size();
+    }
 }
