@@ -64,8 +64,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+<<<<<<< HEAD
     public void onTextChangeFilterByDate() {
         mEditTextDate.addTextChangedListener(new TextWatcher() {
+=======
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+
+>>>>>>> bfa1c140aaad04aa81506d0e274096041d15132d
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -81,6 +87,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             @Override
             public void afterTextChanged(Editable s) {
+
+        })
+    }
+
+ 
 
             }
         });
