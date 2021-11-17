@@ -8,14 +8,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="119dp">
+        android:layout_height="140dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_list_user_avatar"
-            android:layout_width="75dp"
-            android:layout_height="74dp"
+            android:layout_width="61dp"
+            android:layout_height="55dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:layout_marginBottom="35dp"
             android:contentDescription="@string/avatar_rond"
             android:paddingLeft="@dimen/_8sdp"
@@ -24,27 +24,27 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="RtlHardcoded" />
 
         <TextView
             android:id="@+id/email"
-            android:layout_width="284dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="48dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="293dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="16dp"
             android:contentDescription="@string/Email"
-            android:maxLines="1"
+            android:maxLines="2"
             android:text="@string/Email"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/item_list_user_avatar"
+            app:layout_constraintTop_toBottomOf="@+id/sujet" />
 
         <TextView
             android:id="@+id/NomSalle"
             android:layout_width="104dp"
             android:layout_height="31dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="8dp"
             android:contentDescription="@string/nom_de_la_salle"
             android:maxLines="1"
             android:text="@string/nom_de_la_salle"
@@ -56,30 +56,40 @@
 
         <TextView
             android:id="@+id/heure"
-            android:layout_width="80dp"
-            android:layout_height="31dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="116dp"
+            android:layout_height="28dp"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="44dp"
             android:text="@string/heure_de_reunion"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/NomSalle"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/sujet"
-            android:layout_width="94dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_width="276dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="44dp"
             android:maxLines="1"
             android:text="@string/sujet_de_la_reunion"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/heure"
+            app:layout_constraintStart_toStartOf="@+id/NomSalle"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imageButtonDelete"
+            android:layout_width="38dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="12dp"
+            android:contentDescription="@string/Empty"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/email"
+            app:srcCompat="@drawable/icon_delete" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
