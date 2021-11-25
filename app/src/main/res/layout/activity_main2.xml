@@ -13,20 +13,7 @@
     tools:context="cUI.ui.main.Main.MainActivity">
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButtonadd"
-        android:layout_width="65dp"
-        android:layout_height="71dp"
-        android:clickable="true"
-        android:contentDescription="@string/Flotingactionbutton"
-        android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.916"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.949"
-        app:srcCompat="@drawable/ic_baseline_add" />
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview"
@@ -85,6 +72,19 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/cardview"
         tools:listitem="@layout/example_item" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonadd"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="52dp"
+        android:clickable="true"
+        android:contentDescription="@string/Flotingactionbutton"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_add" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -116,7 +116,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     public void onButtonHourClick() {
         final Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
-        // mMinute = c.get(Calendar.MINUTE);
+
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -149,8 +149,6 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
 
-
-
     private static class MeetingPlace {
 
         public String mName;
@@ -173,7 +171,9 @@ public class AddMeetingActivity extends AppCompatActivity {
             new MeetingPlace("Barcelona"),
             new MeetingPlace("Berlin"),
             new MeetingPlace("NewYork"),
-            new MeetingPlace("Moscou"));
+            new MeetingPlace("Moscou"),
+            new MeetingPlace("Laponie"),
+            new MeetingPlace("Pekin"));
 
 
 }

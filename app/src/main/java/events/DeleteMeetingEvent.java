@@ -8,7 +8,7 @@ public class DeleteMeetingEvent {
     public Meeting mMeeting;
 
     public DeleteMeetingEvent(Meeting meeting) {
-       this.mMeeting = meeting;
+        this.mMeeting = meeting;
         DI.getMeetingApiService().deleteMeeting(mMeeting);
     }
 }

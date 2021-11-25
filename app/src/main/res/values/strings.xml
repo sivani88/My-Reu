@@ -5,7 +5,7 @@
     <string name="heure_de_reunion">Time </string>
     <string name="sujet_de_la_reunion">sujet</string>
     <string name="Email">Saisissez les Mail des participant à cette Réu</string>
-    <string name="Desein_pour_activiter_profile">dessein pour la nouvelle activité</string>
+    <string name="Dessin_pour_activite_profile">dessin pour la nouvelle activité</string>
     <string name="Poubelle">poubelle</string>
     <string name="Flotingactionbutton">flotingactionbutton</string>
     <string name="Mail_profile">Mail des participant</string>
@@ -33,12 +33,14 @@
         <item></item>
         <item>Paris</item>
         <item>Moscou</item>
-        <item>Vienne</item>
+        <item>Vienna</item>
         <item>New york</item>
-        <item>Barcelone</item>
+        <item>Barcelona</item>
         <item>Berlin</item>
         <item>London</item>
         <item>Venise</item>
+        <item>Laponie</item>
+        <item>Pekin</item>
     </array>
 
 

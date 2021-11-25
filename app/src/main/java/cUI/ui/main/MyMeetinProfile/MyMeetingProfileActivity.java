@@ -23,7 +23,6 @@ public class MyMeetingProfileActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_my_meeting_profile);
 
-        //TODO boutton Back a faire toolbar
 
         TextView mNameRoom = findViewById(R.id.NamePlace);
         TextView mDateAndHour = findViewById(R.id.HeureDateMeeting);
@@ -45,8 +44,7 @@ public class MyMeetingProfileActivity extends AppCompatActivity {
         setTitle("ma Réu");
 
 
-
-        }
+    }
 
 
 }

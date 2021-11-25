@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         buildRecyclerView();
     }
 
-    public void onTextChangeFilterByDate() {
+    
+  public void onTextChangeFilterByDate() {
         mEditTextDate.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -89,7 +90,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             }
         });
+
     }
+
 
     public void onButtonDateClick() {
         final Calendar calendar = Calendar.getInstance();
@@ -103,8 +106,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String jour;
                 String mois;
-                if (dayOfMonth < 10) { jour = "0" + dayOfMonth; } else { jour = String.valueOf(dayOfMonth);}
-                if (month <9 ) { mois = "0" + (month+1); } else { mois = String.valueOf(month+1);}
+                if (dayOfMonth < 10) {
+                    jour = "0" + dayOfMonth;
+                } else {
+                    jour = String.valueOf(dayOfMonth);
+                }
+                if (month < 9) {
+                    mois = "0" + (month + 1);
+                } else {
+                    mois = String.valueOf(month + 1);
+                }
 
                 mEditTextDate.setText(jour + "/" + mois + "/" + year);
 
@@ -143,7 +154,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void buildRecyclerView() {
         mMeetings = mApiService.getMeetings();
         mRecyclerView = findViewById(R.id.recyclerviewMain);
-       // mRecyclerView.setHasFixedSize(true);
         mAdapter = new ExampleAdapter(mMeetings);
         mAdapter.setOnItemClickListener(new ExampleAdapter.OnItemclickListener() {
             @Override
@@ -164,10 +174,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void removeItem(int position) {
-        mMeetings.remove(position);
+        mApiService.deleteMeeting(mMeetings.get(position));
+        mMeetings = mApiService.getMeetings();
         mAdapter.notifyItemRemoved(position);
     }
-
 
 
     @Override

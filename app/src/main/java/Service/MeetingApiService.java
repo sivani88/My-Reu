@@ -11,7 +11,7 @@ public interface MeetingApiService {
 
     void createMeeting(Meeting meeting);
 
-    public String getAvailableRoom(String date, String hour) ;
+    public String getAvailableRoom(String date, String hour);
 
-    void createMeeting(String mSubject, String mMail, String mName, String mDate, String mHour );
+    void createMeeting(String mSubject, String mMail, String mName, String mDate, String mHour);
 }
