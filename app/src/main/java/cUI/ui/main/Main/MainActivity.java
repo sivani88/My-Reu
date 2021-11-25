@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mButtonDateFilter = findViewById(R.id.button_picker_date);
         mButtonDateFilter.setOnClickListener(v -> onButtonDateClick());
         onTextChangeFilterByDate();
-
-
     }
 
     @Override
@@ -70,10 +68,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         buildRecyclerView();
     }
 
-
-    public void onTextChangeFilterByDate() {
+    
+  public void onTextChangeFilterByDate() {
         mEditTextDate.addTextChangedListener(new TextWatcher() {
-
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -174,7 +171,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     public void removeItem(int position) {
