@@ -20,7 +20,7 @@
             android:layout_height="142dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/circle"
-            android:contentDescription="@string/Desein_pour_activiter_profile"
+            android:contentDescription="@string/Dessin_pour_activite_profile"
             android:src="@drawable/meeting"
             app:layout_constraintBottom_toTopOf="@+id/NamePlace"
             app:layout_constraintEnd_toEndOf="parent"

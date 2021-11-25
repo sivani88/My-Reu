@@ -89,14 +89,14 @@ public class Meeting implements Parcelable {
     private static List<MeetingRoom> MEETING_ROOMS = Arrays.asList(
             new MeetingRoom(R.drawable.london, "London"),
             new MeetingRoom(R.drawable.paris, "Paris"),
-            new MeetingRoom(R.drawable.vienna, "Vienne"),
+            new MeetingRoom(R.drawable.vienna, "Vienna"),
             new MeetingRoom(R.drawable.venise, "Venise"),
-            new MeetingRoom(R.drawable.barcelona, "Barcelone"),
+            new MeetingRoom(R.drawable.barcelona, "Barcelona"),
             new MeetingRoom(R.drawable.berlin, "Berlin"),
             new MeetingRoom(R.drawable.newyork, "NewYork"),
-            new MeetingRoom(R.drawable.moscou, "Moscou"));
-
-
+            new MeetingRoom(R.drawable.moscou, "Moscou"),
+            new MeetingRoom(R.drawable.laponie, "Laponie"),
+            new MeetingRoom(R.drawable.pekin, "Pekin"));
 
 
     public Meeting(long id, String subject, String mail, String name, String date, String hour, boolean availability, int avatarUrl) {
@@ -189,7 +189,7 @@ public class Meeting implements Parcelable {
 
 
     public void setAvatarUrl() {
-        //this.avatarUrl = avatarUrl;
+
     }
 
     @Override

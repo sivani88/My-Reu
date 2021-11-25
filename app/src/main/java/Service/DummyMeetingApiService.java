@@ -5,7 +5,7 @@ import com.example.maru.Model.Meeting;
 import java.util.ArrayList;
 
 public class DummyMeetingApiService implements MeetingApiService {
-    private final ArrayList<Meeting> mMeetings = DummyMeetingGenerator.generateMeetings();
+    private ArrayList<Meeting> mMeetings = DummyMeetingGenerator.generateMeetings();
 
     @Override
     public ArrayList<Meeting> getMeetings() {
@@ -19,7 +19,14 @@ public class DummyMeetingApiService implements MeetingApiService {
 
     @Override
     public void createMeeting(Meeting meeting) {
-        mMeetings.add(meeting);
+        ArrayList<Meeting> meetingsFirst = new ArrayList<Meeting>();
+        meetingsFirst.add(meeting);
+        for (int i = 0; i < mMeetings.size(); i++) {
+            meetingsFirst.add(mMeetings.get(i));
+
+        }
+        mMeetings = meetingsFirst;
+
 
     }
 
@@ -54,7 +61,15 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public void createMeeting(String mSubject, String mMail, String mName, String mDate, String mHour) {
         Meeting meeting = new Meeting(getNextId(), mSubject, mMail, mName, mDate, mHour, false, Meeting.MeetingRoom.getAvatarUrl(mName));
-        mMeetings.add(meeting);
+
+        ArrayList<Meeting> meetingsFirst = new ArrayList<Meeting>();
+        meetingsFirst.add(meeting);
+        for (int i = 0; i < mMeetings.size(); i++) {
+            meetingsFirst.add(mMeetings.get(i));
+
+        }
+        mMeetings = meetingsFirst;
     }
+
 
 }
