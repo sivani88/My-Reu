@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -60,9 +62,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mButtonDateFilter = findViewById(R.id.button_picker_date);
         mButtonDateFilter.setOnClickListener(v -> onButtonDateClick());
         onTextChangeFilterByDate();
+        setTitle("Ma Réu");
 
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add_filter_menu, menu);
+        return true;
+    }
+
+
 
     @Override
     protected void onResume() {
@@ -136,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 (this, R.array.roomms, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setPrompt("Salles de réunions");
 
         spinner.setOnItemSelectedListener(this);
 
