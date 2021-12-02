@@ -36,7 +36,7 @@ public class DummyMeetingGenerator {
             new Meeting(13, "projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
                     "Venise", "05/01/2022", "10", true, R.drawable.venise),
             new Meeting(14, "projet construction", "louloi@gmail.com, Lala@gmail.com, ploskkm@free.fr, zaza@yahoo.fr, bidule88@gmail.com, bazar15@gmail.com",
-                    "Vienne", "01/01/2022", "10", true, R.drawable.vienna));
+                    "Vienna", "01/01/2022", "10", true, R.drawable.vienna));
 
     static ArrayList<Meeting> generateMeetings() {
         return new ArrayList<>(DUMMY_MEETINGS);
