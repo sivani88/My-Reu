@@ -3,8 +3,6 @@ package cUI.ui.main.Main;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,14 +15,16 @@ import com.example.maru.R;
 
 import java.util.ArrayList;
 
-public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExempleViewHolder> implements Filterable {
+import Service.MeetingApiService;
+
+public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExempleViewHolder>  {
 
 
     private OnItemclickListener mListener;
     private ArrayList<Meeting> mMeetingList;
     private ArrayList<Meeting> mMeetingsListOriginal;
     private static final String TAG = "ExampleAdapter";
-    private Filter meetingFilter;
+    private MeetingApiService mApiService;
 
     public interface OnItemclickListener {
         void onItemClick(int position);
@@ -37,20 +37,22 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExempleV
         mListener = listener;
     }
 
-    public ExampleAdapter(ArrayList<Meeting> meetingList) {
-        // mListener = listener;
-        mMeetingList = meetingList;
-        this.mMeetingsListOriginal = new ArrayList<>(meetingList);
-        meetingFilter = new MeetingFilter(mMeetingsListOriginal) {
-
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                mMeetingList.clear();
-                mMeetingList.addAll((ArrayList) results.values);
-                notifyDataSetChanged();
-            }
-        };
+    public ExampleAdapter(MeetingApiService mApiService) {
+        this.mApiService =mApiService;
+        mMeetingList = mApiService.getMeetings();
     }
+
+    public void onDateChanged(String date) {
+        mMeetingList = mApiService.getFilterByDate(date);
+        notifyDataSetChanged();
+    }
+
+    public void onRoomChanged(String room) {
+        mMeetingList = mApiService.getFilterByRoom(room);
+        notifyDataSetChanged();
+    }
+
+
 
     public static class ExempleViewHolder extends RecyclerView.ViewHolder {
         public ImageView mAvatar;
@@ -91,10 +93,6 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExempleV
         }
     }
 
-    @Override
-    public Filter getFilter() {
-        return meetingFilter;
-    }
 
 
 

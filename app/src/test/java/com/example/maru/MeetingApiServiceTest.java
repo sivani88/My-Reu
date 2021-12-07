@@ -5,17 +5,14 @@ import com.example.maru.Model.Meeting;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import Service.MeetingApiService;
-import cUI.ui.main.Main.MeetingFilter;
 import configure.injection.DI;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.spy;
 
 public class MeetingApiServiceTest {
 
@@ -28,17 +25,19 @@ public class MeetingApiServiceTest {
 
     @Test
     public void getMeetings() {
-        List<Meeting> meetings = service.getMeetings();
-        assertEquals(14, meetings.size());
+        assertEquals(14, service.getMeetings().size());
     }
 
 
 
     @Test
     public void addMeeting() {
-        service.getMeetings().clear();
         List<String> EMAILS = Arrays.asList("xyz@example, abc@example, uvw@example.com");
         Meeting meeting = new Meeting(15, "gygu", "xyz@example, abc@example, uvw@example.com","Laponie", "01/12/2022", "10.00", true, R.drawable.venise);
+        service.createMeeting(meeting);
+        assertEquals(15, service.getMeetings().size());
+        assertEquals(meeting, service.getMeetings().get(0));
+        service.getMeetings().clear();
         service.createMeeting(meeting);
         assertEquals(1, service.getMeetings().size());
     }
@@ -53,5 +52,16 @@ public class MeetingApiServiceTest {
         assertFalse(service.getMeetings().contains(neighbourToDelete));
     }
 
+     @Test
+    public void filterMeetingTest() {
+        assertEquals(8, service.getFilterByDate("01/01/2022").size());
+        assertEquals(1, service.getFilterByRoom("London").size());
+        assertEquals(14, service.getFilterByRoom(" ").size());
+        assertEquals(14, service.getFilterByDate(" ").size());
+        assertEquals(0, service.getFilterByRoom("ERSQf").size());
+        assertEquals(0, service.getFilterByDate("01/02/2012").size());
+
+
+    }
 
 }

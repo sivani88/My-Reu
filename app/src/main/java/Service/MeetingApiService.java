@@ -14,4 +14,9 @@ public interface MeetingApiService {
     public String getAvailableRoom(String date, String hour);
 
     void createMeeting(String mSubject, String mMail, String mName, String mDate, String mHour);
+
+   ArrayList<Meeting> getFilterByDate(String constraint);
+
+    ArrayList<Meeting> getFilterByRoom(String constraint);
+
 }

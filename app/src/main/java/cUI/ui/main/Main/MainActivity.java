@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -76,15 +75,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-
     @Override
     protected void onResume() {
         super.onResume();
         buildRecyclerView();
     }
 
-    
-  public void onTextChangeFilterByDate() {
+
+    public void onTextChangeFilterByDate() {
         mEditTextDate.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -95,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String dateInput = mEditTextDate.getText().toString();
-                mAdapter.getFilter().filter(dateInput);
+                mAdapter.onDateChanged(dateInput);
 
 
             }
@@ -170,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void buildRecyclerView() {
         mMeetings = mApiService.getMeetings();
         mRecyclerView = findViewById(R.id.recyclerviewMain);
-        mAdapter = new ExampleAdapter(mMeetings);
+        mAdapter = new ExampleAdapter(mApiService);
         mAdapter.setOnItemClickListener(new ExampleAdapter.OnItemclickListener() {
             @Override
             public void onItemClick(int position) {
@@ -200,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String choice = parent.getItemAtPosition(position).toString();
         Toast.makeText(parent.getContext(), choice, Toast.LENGTH_SHORT).show();
-        mAdapter.getFilter().filter(choice);
+        mAdapter.onRoomChanged(choice);
     }
 
     @Override

@@ -71,5 +71,39 @@ public class DummyMeetingApiService implements MeetingApiService {
         mMeetings = meetingsFirst;
     }
 
+    @Override
+    public ArrayList<Meeting> getFilterByDate(String constraint) {
+        ArrayList<Meeting> filteredList = new ArrayList<>();
+        if (constraint == null || constraint.length() == 0) {
+            filteredList.addAll(mMeetings);
+        } else {
+            String filterPattern = constraint.toLowerCase().trim();
+            for (Meeting m : mMeetings) {
+                if (m.getDate().toLowerCase().contains(filterPattern)) {
+                    filteredList.add(m);
+                }
+            }
+
+        }
+        return filteredList;
+
+    }
+
+    @Override
+    public ArrayList<Meeting> getFilterByRoom(String constraint) {
+        ArrayList<Meeting> filteredList = new ArrayList<>();
+        if (constraint == null || constraint.length() == 0) {
+            filteredList.addAll(mMeetings);
+        } else {
+            String filterPattern = constraint.toLowerCase().trim();
+            for (Meeting m : mMeetings) {
+                if (m.getName().toLowerCase().contains(filterPattern)) {
+                    filteredList.add(m);
+                }
+            }
+        }
+        return filteredList;
+    }
+
 
 }
