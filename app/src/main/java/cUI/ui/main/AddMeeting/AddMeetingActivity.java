@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -33,6 +34,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     EditText mSubject;
     Button buttonDate, buttonHour, buttonSave;
     EditText textDate, textHour;
+    String mDateConfirm, mHourConfirm, mSubjectConfirm, mMailConfirm;
     int mHour, mMinute, mYear, mMonth, mDay;
     MultiAutoCompleteTextView mMail;
 
@@ -113,6 +115,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     }
 
+
     public void onButtonHourClick() {
         final Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
@@ -129,23 +132,70 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     }
 
+    private boolean confirmDate() {
+        if (textDate.getText() != null) {
+            mDateConfirm = textDate.getText().toString();
+        }
+        if (mDateConfirm.trim().isEmpty()) {
+            textDate.setError("please enter a date");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean confirmHour() {
+        if (textHour.getText() != null) {
+            mHourConfirm = textHour.getText().toString();
+        }
+        if (mHourConfirm.trim().isEmpty()) {
+            textHour.setError("please enter a hour");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean confirmSubject() {
+        if (mSubject.getText() != null) {
+            mSubjectConfirm = mSubject.getText().toString();
+        }
+        if (mSubjectConfirm.trim().isEmpty()) {
+            mSubject.setError("please enter a subject");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean emailConfirm() {
+        if (mMail.getText() != null) {
+            mMailConfirm = mMail.getText().toString();
+        }
+        if (mMailConfirm.isEmpty()) {
+            mMail.setError("please enter a Email");
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(mMailConfirm).matches()) {
+            mMail.setError("Valid email required");
+            return false;
+        }
+        return true;
+    }
+
     public void onButtonSaveClick() {
         String room = mApiService.getAvailableRoom(textDate.getText().toString(), textHour.getText().toString());
         if (room == null) {
             Toast.makeText(this, "No Room Available", Toast.LENGTH_LONG).show();
 
         } else {
-            mApiService.createMeeting(
-                    mSubject.getText().toString(),
-                    mMail.getText().toString(),
-                    room,
-                    textDate.getText().toString(),
-                    textHour.getText().toString()
-            );
-            Toast.makeText(this, room, Toast.LENGTH_LONG).show();
-            finish();
-        }
-
+            if (emailConfirm() && confirmSubject() && confirmHour() && confirmDate()) {
+                mApiService.createMeeting(
+                        mSubject.getText().toString(),
+                        mMail.getText().toString(), room,
+                        textDate.getText().toString(),
+                        textHour.getText().toString()
+                );
+                Toast.makeText(this, room, Toast.LENGTH_LONG).show();
+                finish();
+            }
+         }
     }
 
 

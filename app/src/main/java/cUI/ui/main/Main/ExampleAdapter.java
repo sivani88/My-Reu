@@ -24,6 +24,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExempleV
     private ArrayList<Meeting> mMeetingList;
     private ArrayList<Meeting> mMeetingsListOriginal;
     private static final String TAG = "ExampleAdapter";
+    private Filter meetingFilter;
 
     public interface OnItemclickListener {
         void onItemClick(int position);
@@ -37,9 +38,18 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExempleV
     }
 
     public ExampleAdapter(ArrayList<Meeting> meetingList) {
-       // mListener = listener;
+        // mListener = listener;
         mMeetingList = meetingList;
-       this.mMeetingsListOriginal = new ArrayList<>(meetingList);
+        this.mMeetingsListOriginal = new ArrayList<>(meetingList);
+        meetingFilter = new MeetingFilter(mMeetingsListOriginal) {
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                mMeetingList.clear();
+                mMeetingList.addAll((ArrayList) results.values);
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public static class ExempleViewHolder extends RecyclerView.ViewHolder {
@@ -86,37 +96,11 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExempleV
         return meetingFilter;
     }
 
-    private Filter meetingFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            ArrayList<Meeting> filteredMeetingList = new ArrayList<>();
-            if (constraint == null || constraint.length() == 0) {
-                filteredMeetingList.addAll(mMeetingsListOriginal);
 
-            } else {
-                String filterPattern = constraint.toString().toLowerCase().trim();
-                for (Meeting meeting : mMeetingsListOriginal) {
-                    if ((meeting.getDate().toLowerCase().contains(filterPattern)) || (meeting.getName().toLowerCase().contains(filterPattern))) {
-                        filteredMeetingList.add(meeting);
-                    }
-                }
-            }
-            FilterResults results = new FilterResults();
-            results.values = filteredMeetingList;
-            results.count = filteredMeetingList.size();
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            mMeetingList.clear();
-            mMeetingList.addAll((ArrayList) results.values);
-            notifyDataSetChanged();
-        }
-    };
 
     @NonNull
     @Override
+
     public ExempleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.example_item, parent, false);
         ExempleViewHolder mHolder = new ExempleViewHolder(v, mListener);

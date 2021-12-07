@@ -5,14 +5,17 @@ import com.example.maru.Model.Meeting;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import Service.MeetingApiService;
+import cUI.ui.main.Main.MeetingFilter;
 import configure.injection.DI;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.spy;
 
 public class MeetingApiServiceTest {
 

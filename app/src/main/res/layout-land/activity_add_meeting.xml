@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="wrap_content">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,8 +16,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            android:layout_width="match_parent"
-            android:layout_height="204dp"
+            android:layout_width="676dp"
+            android:layout_height="138dp"
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,44 +25,45 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/editTextDate"
-                    android:layout_width="213dp"
-                    android:layout_height="63dp"
-                    android:layout_marginStart="385dp"
-                    android:layout_marginTop="53dp"
-                    android:layout_marginEnd="85dp"
+                    android:layout_width="171dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="20dp"
+                    android:clickable="false"
+                    android:duplicateParentState="false"
                     android:elegantTextHeight="true"
                     android:ems="10"
+                    android:focusable="auto"
+                    android:focusableInTouchMode="false"
                     android:gravity="center"
                     android:hint="@string/Date"
                     android:importantForAutofill="no"
                     android:inputType="date"
+                    android:singleLine="true"
                     android:textColorHint="@color/rose"
                     android:textSize="15sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toEndOf="@+id/buttonDate"
+                    app:layout_constraintTop_toTopOf="@+id/buttonDate" />
 
                 <EditText
                     android:id="@+id/editTextTime"
-                    android:layout_width="204dp"
-                    android:layout_height="59dp"
-                    android:layout_marginStart="392dp"
-                    android:layout_marginTop="129dp"
-                    android:layout_marginEnd="87dp"
+                    android:layout_width="173dp"
+                    android:layout_height="51dp"
+                    android:layout_marginStart="9dp"
+                    android:clickable="false"
                     android:ems="10"
+                    android:focusableInTouchMode="false"
                     android:gravity="center"
                     android:hint="@string/Heure"
                     android:importantForAutofill="no"
                     android:inputType="time"
                     android:textColorHint="@color/rose"
                     android:textSize="15sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toEndOf="@+id/buttonHaour"
+                    app:layout_constraintTop_toTopOf="@+id/buttonHaour" />
 
                 <TextView
                     android:id="@+id/FindADateAndHoure"
@@ -84,31 +83,40 @@
 
                 <Button
                     android:id="@+id/buttonDate"
-                    android:layout_width="214dp"
-                    android:layout_height="54dp"
-                    android:layout_marginStart="63dp"
-                    android:layout_marginTop="49dp"
-                    android:layout_marginEnd="406dp"
+                    android:layout_width="131dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="36dp"
                     android:contentDescription="@string/Find_a_date"
                     android:labelFor="@+id/Date"
                     android:text="@string/button_Date"
                     app:iconTint="#00BCD4"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:targetApi="o" />
 
                 <Button
                     android:id="@+id/buttonHaour"
-                    android:layout_width="215dp"
-                    android:layout_height="57dp"
-                    android:layout_marginStart="62dp"
-                    android:layout_marginTop="131dp"
-                    android:layout_marginEnd="406dp"
+                    android:layout_width="131dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="36dp"
                     android:text="@string/button_haour"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/editTextDate"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName"
+                    android:layout_width="654dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/sujet_de_la_reunion"
+                    android:inputType="text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -117,30 +125,26 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="394dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView">
-
-            <EditText
-                android:id="@+id/editTextTextPersonName"
-                android:layout_width="match_parent"
-                android:layout_height="83dp"
-                android:autofillHints=""
-                android:ems="10"
-                android:hint="@string/sujet_de_la_reunion"
-                android:inputType="textPersonName" />
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            app:layout_constraintVertical_bias="1.0">
 
             <MultiAutoCompleteTextView
                 android:id="@+id/multiAutoCompleteTextView"
-                android:layout_width="673dp"
-                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:hint="@string/Email" />
+                android:hint="@string/Email"
+                android:imeOptions="actionDone"
+                android:isScrollContainer="true"
+                android:keepScreenOn="true" />
 
             <Button
                 android:id="@+id/buttonSubmit"

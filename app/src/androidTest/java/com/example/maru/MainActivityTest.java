@@ -37,12 +37,10 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.example.maru.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -53,6 +51,8 @@ public class MainActivityTest {
     private int ITEMS_COUNT;
     MainActivity mMainActivity;
     MeetingApiService mApiService;
+    final int[] COUNT = {0};
+
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
@@ -77,33 +77,30 @@ public class MainActivityTest {
 
 
     @Test
-    public void myRecyclerViewDeleteActionShouldRemoveItem() {
-        ITEMS_COUNT = getCountFromRecyclerView(R.id.recyclerviewMain);
-        onView(withId(R.id.recyclerviewMain))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
-        onView(withId(R.id.recyclerviewMain)).check(withItemCount(ITEMS_COUNT - 1));
-
-    }
-
-    @Test
-    public void infoActivity() {
-        String name = mApiService.getMeetings().get(3).getName();
-        onView(withId(R.id.recyclerviewMain)).perform(RecyclerViewActions.actionOnItemAtPosition(3, click()));
-        onView(withId(R.id.NamePlace)).check(matches(withText(name)));
-        Espresso.pressBack();
-
-    }
-
-    @Test
     public void selectSpinnerItem() {
         onView(withId(R.id.spinnerRoom))
                 .check(matches(isDisplayed()))
                 .perform(click());
         Espresso.onData(anything("Vienna")).atPosition(3).perform(click());
-        onView(withId(R.id.spinnerRoom)).check(matches(withSpinnerText(containsString("Vienna"))));
+        onView(allOf(withId(R.id.recyclerviewMain), isDisplayed()))
+                .check(withItemCount(1));
         Espresso.onData(anything("")).atPosition(0).perform(click());
+    }
+
+    @Test
+    public void selectDateFilter() {
+        onView(withId(R.id.button_picker_date))
+                .perform(click());
+        ;
+        onView(ViewMatchers.withClassName(Matchers.equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2022, 1, 1));
+        onView(withText("OK")).perform(click());
+        onView(allOf(withId(R.id.recyclerviewMain), isDisplayed()))
+                .check(withItemCount(8));
+
 
     }
+
 
     public static int getCountFromRecyclerView(@IdRes int RecyclerViewId) {
         final int[] COUNT = {0};
@@ -123,6 +120,16 @@ public class MainActivityTest {
         onView(allOf(withId(RecyclerViewId), isDisplayed())).check(matches(matcher));
         return COUNT[0];
     }
+
+    @Test
+    public void myRecyclerViewDeleteActionShouldRemoveItem() {
+        ITEMS_COUNT = getCountFromRecyclerView(R.id.recyclerviewMain);
+        onView(withId(R.id.recyclerviewMain))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
+        onView(withId(R.id.recyclerviewMain)).check(withItemCount(ITEMS_COUNT - 1));
+
+    }
+
 
     @Test
     public void addAction_shouldAddItem() {
