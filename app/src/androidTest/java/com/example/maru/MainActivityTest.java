@@ -92,24 +92,11 @@ public class MainActivityTest {
         Espresso.onData(anything("")).atPosition(0).perform(click());
     }
 
+
     @Test
     public void selectDateFilter() {
         onView(withId(R.id.button_picker_date))
                 .perform(click());
-        ;
-        onView(ViewMatchers.withClassName(Matchers.equalTo(DatePicker.class.getName())))
-                .perform(PickerActions.setDate(2022, 1, 1));
-        onView(withText("OK")).perform(click());
-        onView(allOf(withId(R.id.recyclerviewMain), isDisplayed()))
-                .check(withItemCount(8));
-
-
-
-    }
-    @Test
-    public void selectDateFilter() {
-        onView(withId(R.id.button_picker_date))
-                .perform(click()); ;
          onView(ViewMatchers.withClassName(Matchers.equalTo(DatePicker.class.getName())))
                 .perform(PickerActions.setDate(2022, 1, 1));
         onView(withText("OK")).perform(click());
@@ -138,14 +125,7 @@ public class MainActivityTest {
         onView(allOf(withId(RecyclerViewId), isDisplayed())).check(matches(matcher));
         return COUNT[0];
     }
-    @Test
-    public void myRecyclerViewDeleteActionShouldRemoveItem() {
-        ITEMS_COUNT = getCountFromRecyclerView(R.id.recyclerviewMain);
-        onView(withId(R.id.recyclerviewMain))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
-        onView(withId(R.id.recyclerviewMain)).check(withItemCount(ITEMS_COUNT - 1));
 
-    }
 
 
     @Test
