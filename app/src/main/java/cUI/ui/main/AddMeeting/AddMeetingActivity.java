@@ -216,7 +216,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     private static List<MeetingPlace> MEETING_Place = Arrays.asList(
             new MeetingPlace("London"),
             new MeetingPlace("Paris"),
-            new MeetingPlace("Vienne"),
+            new MeetingPlace("Vienna"),
             new MeetingPlace("Venise"),
             new MeetingPlace("Barcelona"),
             new MeetingPlace("Berlin"),

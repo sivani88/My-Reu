@@ -71,7 +71,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.add_filter_menu, menu);
         return true;
+
+      
+
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add_filter_menu, menu);
+        return true;
+    }
+
+
 
     @Override
     protected void onResume() {
@@ -144,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 (this, R.array.roomms, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setPrompt("Salles de réunions");
 
         spinner.setOnItemSelectedListener(this);
 
